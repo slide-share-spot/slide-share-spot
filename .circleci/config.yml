@@ -1,30 +1,52 @@
-version: 2
-jobs:
-  build:
+version: 2.1
+
+executors:
+  default:
+    working_directory: ~/repo
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node
+        environment:
+          TZ: Asia/Tokyo
+
+commands:
+  restore_npm:
     steps:
       - restore_cache:
-          keys:
-            - source-v1-{{ .Branch }}-{{ .Revision }}
-            - source-v1-{{ .Branch }}-
-            - source-v1-
+          name: Restore npm dependencies
+          key: npm-v1-{{ checksum "package-lock.json" }}
+  save_npm:
+    steps:
+      - save_cache:
+          name: Cache npm dependencies
+          key: npm-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/repo/node_modules
+
+jobs:
+  setup:
+    executor:
+      name: default
+    steps:
       - checkout
-      - save_cache:
-          key: source-v1-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - .git
-      - restore_cache:
-          key: v1-npm-deps-{{ checksum "package.json" }}
-      - run: npm install
-      - save_cache:
-          key: v1-npm-deps-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+      - restore_npm
       - run:
-          name: lint
-          command: |
-            mkdir -p /tmp/test-reports/eslint
-            node_modules/.bin/eslint . --format junit --output-file /tmp/test-reports/eslint/results.xml
-      - store_test_results:
-          path: /tmp/test-reports
+          name: Install npm dependencies
+          command: npm ci
+      - save_npm
+  lint:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - restore_npm
+      - run:
+          name: Run lint
+          command: npm run lint
+
+workflows:
+  linting:
+    jobs:
+      - setup
+      - lint:
+          requires:
+            - setup
