@@ -1,3 +1,4 @@
+require('dotenv').config()
 export default {
   mode: 'universal',
   /*
@@ -27,13 +28,14 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/firebaseSettings.js'],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Nuxt.js modules
@@ -56,6 +58,18 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    babel: {
+      presets({ isServer }) {
+        return [
+          [
+            require.resolve('@nuxt/babel-preset-app'),
+            {
+              buildTarget: isServer ? 'server' : 'client',
+              corejs: { version: 3 }
+            }
+          ]
+        ]
+      }
+    }
   }
 }
