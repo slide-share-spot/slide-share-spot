@@ -1,0 +1,20 @@
+name: Yarn CI
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: yarn install
+        uses: nuxt/actions-yarn@node-11
+        with:
+          args: "install"
+
+      - name: yarn lint
+        uses: nuxt/actions-yarn@node-11
+        with:
+          args: "lint"
