@@ -4,6 +4,16 @@ export default {
   /*
    ** Headers of the page
    */
+  env: {
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    databaseURL: process.env.databaseURL,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingServiceId: process.env.messagingServiceId,
+    appId: process.env.appId,
+    measurementId: process.env.measurementId
+  },
   head: {
     title: process.env.npm_package_name || '',
     meta: [
