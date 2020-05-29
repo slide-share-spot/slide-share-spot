@@ -53,6 +53,11 @@ export default {
           title: 'Inspire',
           icon: 'lightbulb',
           to: { name: 'inspire' }
+        },
+        {
+          title: 'Signup',
+          icon: 'home',
+          to: { name: 'signup' }
         }
       ]
     }
