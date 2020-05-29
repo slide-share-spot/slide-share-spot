@@ -63,6 +63,11 @@ export default {
           title: 'signIn',
           icon: 'home',
           to: { name: 'signin' }
+        },
+        {
+          title: 'signOut',
+          icon: 'home',
+          to: { name: 'signout' }
         }
       ]
     }

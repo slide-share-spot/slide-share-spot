@@ -7,12 +7,7 @@
       </b-field>
 
       <b-field label="Password">
-        <b-input
-          v-model="password"
-          type="password"
-          value="iwantmytreasure"
-          password-reveal
-        ></b-input>
+        <b-input v-model="password" type="password" password-reveal></b-input>
       </b-field>
     </div>
     <div>
