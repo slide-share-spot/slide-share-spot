@@ -58,6 +58,11 @@ export default {
           title: 'Signup',
           icon: 'home',
           to: { name: 'signup' }
+        },
+        {
+          title: 'signIn',
+          icon: 'home',
+          to: { name: 'signin' }
         }
       ]
     }
