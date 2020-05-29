@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebaseSettings'
+import { auth } from '~/plugins/firebaseSettings'
 export default {
   methods: {
     async signOut() {
-      await firebase.auth().signOut()
+      await auth.signOut()
       this.$router.push('/')
     }
   }

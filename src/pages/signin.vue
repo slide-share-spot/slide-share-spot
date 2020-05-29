@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebaseSettings'
+import { auth } from '~/plugins/firebaseSettings'
 export default {
   data() {
     return {
@@ -27,8 +27,7 @@ export default {
   },
   methods: {
     signIn() {
-      firebase
-        .auth()
+      auth
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() =>
           this.$buefy.toast.open({
