@@ -13,7 +13,8 @@ export default {
     storageBucket: process.env.storageBucket,
     messagingServiceId: process.env.messagingServiceId,
     appId: process.env.appId,
-    measurementId: process.env.measurementId
+    measurementId: process.env.measurementId,
+    subscriptionKey: process.env.subscriptionKey
   },
   head: {
     title: process.env.npm_package_name || '',
