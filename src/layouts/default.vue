@@ -21,7 +21,7 @@
     <section class="main-content columns">
       <aside class="column is-2 section">
         <p class="menu-label is-hidden-touch">General</p>
-        <p>login state: {{ $store.state.isAuthorized }}</p>
+        <p>login state: {{ state }}</p>
         <ul class="menu-list">
           <li v-for="(item, key) of items" :key="key">
             <nuxt-link :to="item.to" exact-active-class="is-active">
@@ -70,6 +70,11 @@ export default {
           to: { name: 'signout' }
         }
       ]
+    }
+  },
+  computed: {
+    state() {
+      return this.$store.getters.isAuthorized
     }
   }
 }

@@ -8,12 +8,17 @@
 </template>
 
 <script>
-import { auth } from '~/plugins/firebaseSettings'
 export default {
   methods: {
     async signOut() {
-      await auth.signOut()
-      this.$router.push('/')
+      const res = await this.$store.dispatch('logout')
+      if (res === 'success') {
+        this.$buefy.toast.open({
+          message: 'ログoutできましt＾あ',
+          type: 'is-success'
+        })
+        this.$router.push('/')
+      }
     }
   }
 }

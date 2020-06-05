@@ -14,7 +14,6 @@ export const mutations = {
   },
   logout(state) {
     state.isAuthorized = false
-    state.user = null
   }
 }
 
@@ -33,14 +32,18 @@ export const actions = {
     })
   },
   logout({ commit }) {
-    auth
-      .signout()
-      .then(() => {
-        commit('logout')
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    return new Promise((resolve, reject) => {
+      auth
+        .signOut()
+        .then(() => {
+          commit('logout')
+          resolve('success')
+        })
+        .catch((err) => {
+          console.log(err)
+          reject(err)
+        })
+    })
   }
 }
 
