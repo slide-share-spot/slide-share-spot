@@ -16,6 +16,8 @@ export const mutations = {
   },
   logout(state) {
     state.isAuthorized = false
+    state.email = null
+    // localStorage.removeItem('slide-share-spot')
   }
 }
 
