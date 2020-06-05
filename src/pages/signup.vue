@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { auth } from '~/plugins/firebaseSettings'
+import firebase from '~/plugins/firebaseSettings'
 export default {
   data() {
     return {
@@ -31,21 +31,41 @@ export default {
     }
   },
   methods: {
-    signUp() {
-      auth
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(() =>
-          this.$buefy.toast.open({
-            message: '登録できましtあ',
-            type: 'is-success'
+    async signUp() {
+      try {
+        const providers = await firebase
+          .auth()
+          .fetchSignInMethodsForEmail(this.email)
+        if (
+          providers.findIndex(
+            (p) =>
+              p ===
+              firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
+          ) !== -1
+        ) {
+          alert('登録されています')
+          return
+        }
+        const res = await firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+
+        // 確認メールの送信
+        res.user
+          .sendEmailVerification({
+            url: 'https://slide-share-spot.herokuapp.com/',
+            handleCodeInApp: false
           })
-        )
-        .then(() => this.$router.push('/'))
-        // TODO: emailのバリデーションをかける. computedでvalidかをt/fで評価して、tだったらsignup関数を実行できるようにする
-        .catch(function(err) {
-          console.log(err.code)
-          alert(err.message)
-        })
+          .then(() => {
+            this.$buefy.toast.open({
+              message: 'メールを確認してください',
+              type: 'is-success'
+            })
+            this.$router.push('/')
+          })
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 }
