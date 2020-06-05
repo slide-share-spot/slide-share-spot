@@ -43,7 +43,9 @@ export default {
       const storageRef = firebase.storage().ref()
 
       db.collection('article')
-        .doc('pBSQUlavK1BHYtrLWeCX')
+        .doc(
+          'audio-substituting-haptic-system-to-aware-the-sound-from-backwards'
+        )
         .get()
         .then((querySnapshot) => {
           return querySnapshot.data()
