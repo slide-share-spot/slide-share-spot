@@ -23,8 +23,10 @@ export const actions = {
       auth
         .signInWithEmailAndPassword(email, password)
         .then((res) => {
-          commit('login')
-          resolve(res.user)
+          if (res.user.emailVerified) {
+            commit('login')
+          }
+          resolve(res.user.emailVerified)
         })
         .catch((err) => {
           reject(err)

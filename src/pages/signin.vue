@@ -30,11 +30,16 @@ export default {
         email: this.email,
         password: this.password
       })
-      console.log(res.uid)
+      console.log(res)
 
-      if (res) {
+      if (!res) {
         this.$buefy.toast.open({
-          message: 'ログインできましt＾あ',
+          message: 'メアドの確認をしてください',
+          type: 'is-success'
+        })
+      } else {
+        this.$buefy.toast.open({
+          message: 'ログインできました',
           type: 'is-success'
         })
         this.$router.push('/')
