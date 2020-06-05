@@ -8,10 +8,15 @@
       </p>
     </b-field>
     <div class="list is-hoverable">
-      <div v-for="data in datas" :key="data.Ti" class="list-item">
+      <nuxt-link
+        :to="{ name: 'article-view' }"
+        v-for="data in datas"
+        :key="data.Ti"
+        class="list-item"
+      >
         {{ data.Ti }}
         ({{ data.Y }})
-      </div>
+      </nuxt-link>
     </div>
   </section>
 </template>
