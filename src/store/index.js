@@ -1,5 +1,6 @@
 import { auth } from '~/plugins/firebaseSettings'
 
+// TODO: userのdisplayname,メアドやセッション情報を保持
 export const state = () => ({
   user: null,
   isAuthorized: false,
@@ -7,9 +8,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-  setUser(state, { user }) {
-    state.user = user
-  },
   login(state, email) {
     state.isAuthorized = true
     state.email = email
@@ -28,10 +26,11 @@ export const actions = {
         .signInWithEmailAndPassword(email, password)
         .then((res) => {
           if (res.user.emailVerified) {
+            // メアド認証が終わっていればloginコミットを打つ
             commit('login', res.user.email)
           }
           console.log(res.user)
-
+          // resolveは認証されてるかどうかのT/Fを返す
           resolve(res.user.emailVerified)
         })
         .catch((err) => {
@@ -44,6 +43,7 @@ export const actions = {
       auth
         .signOut()
         .then(() => {
+          // ログアウトコミットを打つ
           commit('logout')
           resolve('success')
         })

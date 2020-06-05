@@ -10,6 +10,7 @@
 <script>
 export default {
   methods: {
+    // TODO: 失敗時の処理
     async signOut() {
       const res = await this.$store.dispatch('logout')
       if (res === 'success') {

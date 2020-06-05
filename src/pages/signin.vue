@@ -32,6 +32,7 @@ export default {
       })
       console.log(res)
 
+      // resにはメール確認済みかどうかのt/fが入っている
       if (!res) {
         this.$buefy.toast.open({
           message: 'メアドの確認をしてください',

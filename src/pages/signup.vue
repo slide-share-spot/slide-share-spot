@@ -33,6 +33,7 @@ export default {
   methods: {
     async signUp() {
       try {
+        // メアドがすでに使われているかの確認
         const providers = await firebase
           .auth()
           .fetchSignInMethodsForEmail(this.email)
@@ -46,6 +47,8 @@ export default {
           alert('登録されています')
           return
         }
+
+        // 新規の場合ユーザの作成
         const res = await firebase
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
