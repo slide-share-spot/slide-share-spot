@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import { auth } from '~/plugins/firebaseSettings'
 export default {
   data() {
     return {
@@ -26,21 +25,20 @@ export default {
     }
   },
   methods: {
-    signIn() {
-      auth
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(() =>
-          this.$buefy.toast.open({
-            message: 'ログインできましt＾あ',
-            type: 'is-success'
-          })
-        )
-        .then(() => this.$router.push('/'))
+    async signIn() {
+      const res = await this.$store.dispatch('login', {
+        email: this.email,
+        password: this.password
+      })
+      console.log(res.uid)
 
-        .catch(function(err) {
-          console.log(err.code)
-          alert(err.message)
+      if (res) {
+        this.$buefy.toast.open({
+          message: 'ログインできましt＾あ',
+          type: 'is-success'
         })
+        this.$router.push('/')
+      }
     }
   }
 }
