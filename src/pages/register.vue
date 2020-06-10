@@ -42,7 +42,7 @@ export default {
     submit() {
       db.collection('article')
         .add({
-          author: 'suzuki kensuke'
+          author: this.field.auther
         })
         .then((docRef) => {
           console.log('document written with id: ' + docRef.id)
