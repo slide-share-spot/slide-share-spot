@@ -20,13 +20,14 @@
 
     <section class="main-content columns">
       <aside class="column is-2 section">
-        <p class="menu-label is-hidden-touch">
-          General
-        </p>
+        <p class="menu-label is-hidden-touch">General</p>
+        <p>login state: {{ state }}</p>
+        <p>email: {{ email }}</p>
         <ul class="menu-list">
           <li v-for="(item, key) of items" :key="key">
             <nuxt-link :to="item.to" exact-active-class="is-active">
-              <b-icon :icon="item.icon" /> {{ item.title }}
+              <b-icon :icon="item.icon" />
+              {{ item.title }}
             </nuxt-link>
           </li>
         </ul>
@@ -53,8 +54,31 @@ export default {
           title: 'Inspire',
           icon: 'lightbulb',
           to: { name: 'inspire' }
+        },
+        {
+          title: 'Signup',
+          icon: 'home',
+          to: { name: 'signup' }
+        },
+        {
+          title: 'signIn',
+          icon: 'home',
+          to: { name: 'signin' }
+        },
+        {
+          title: 'signOut',
+          icon: 'home',
+          to: { name: 'signout' }
         }
       ]
+    }
+  },
+  computed: {
+    state() {
+      return this.$store.getters.isAuthorized
+    },
+    email() {
+      return this.$store.getters.userEmail
     }
   }
 }

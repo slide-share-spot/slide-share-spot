@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/auth'
 
 // 環境変数のセット
 const config = {
@@ -19,3 +20,4 @@ if (!firebase.apps.length) {
 }
 
 export default firebase
+export const auth = firebase.auth()
