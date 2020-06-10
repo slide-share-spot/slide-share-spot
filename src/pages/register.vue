@@ -2,10 +2,10 @@
   <section class="section">
     <h1>ここはスライド内容を投稿するページ</h1>
     <div>
-      <!-- <b-field label="論文タイトル">
-        <b-input v-model="field.inf.name"></b-input>
+      <b-field label="論文タイトル">
+        <b-input v-model="field.title"></b-input>
       </b-field>
-      <b-field label="ようやく">
+      <!--  <b-field label="ようやく">
         <b-input v-model="feild.inf.abstract"></b-input>
       </b-field> -->
       <b-field label="著者">
@@ -29,12 +29,7 @@ export default {
     return {
       field: {
         auther: '',
-        inf: {
-          abstract: '',
-          contribution: '',
-          tags: [],
-          name: ''
-        }
+        title: ''
       }
     }
   },
@@ -42,7 +37,10 @@ export default {
     submit() {
       db.collection('article')
         .add({
-          author: this.field.auther
+          author: this.field.auther,
+          inf: {
+            name: this.field.title
+          }
         })
         .then((docRef) => {
           console.log('document written with id: ' + docRef.id)
