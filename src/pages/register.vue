@@ -30,7 +30,7 @@
         <b-input v-model="info.tag"></b-input>
       </b-field>
     </div>
-    <button @click="submit()">投稿する</button>
+    <button :disabled="!info.title" @click="submit()">投稿する</button>
   </section>
 </template>
 
@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     submit() {
+      if (this.info.title === '') return
       db.collection('article-test')
         .doc(this.info.title.toLowerCase())
         .set({
