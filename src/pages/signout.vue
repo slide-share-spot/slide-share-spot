@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  middleware: 'authenticated',
   methods: {
     // TODO: 失敗時の処理
     async signOut() {
