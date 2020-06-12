@@ -3,19 +3,31 @@
     <h1>ここはスライド内容を投稿するページ</h1>
     <div>
       <b-field label="論文タイトル">
-        <b-input v-model="field.title"></b-input>
+        <b-input v-model="info.title"></b-input>
       </b-field>
       <b-field label="ようやく">
-        <b-input v-model="field.abstract"></b-input>
+        <b-input v-model="info.abstract"></b-input>
       </b-field>
       <!-- <b-field label="著者">
         <b-input v-model="field.auther"></b-input>
       </b-field>-->
       <b-field label="こんとりびゅーしょん">
-        <b-input v-model="field.contribution"></b-input>
+        <b-input v-model="info.contribution"></b-input>
       </b-field>
       <b-field label="verify">
-        <b-input v-model="field.verify"></b-input>
+        <b-input v-model="info.verify"></b-input>
+      </b-field>
+      <b-field label="発行年">
+        <b-input v-model="info.year"></b-input>
+      </b-field>
+      <b-field label="著者名">
+        <b-input v-model="author.name"></b-input>
+      </b-field>
+      <b-field label="著者の所属">
+        <b-input v-model="author.institute"></b-input>
+      </b-field>
+      <b-field label="タグ">
+        <b-input v-model="info.tag"></b-input>
       </b-field>
     </div>
     <button @click="submit()">投稿する</button>
@@ -30,31 +42,31 @@ export default {
   components: {},
   data() {
     return {
-      field: {
+      info: {
         title: '',
         abstract: '',
         contribution: '',
-        verify: ''
-        // auther: [],
+        verify: '',
+        year: '',
         // tags: []
+        tag: ''
+      },
+      author: {
+        name: '',
+        institute: ''
       }
     }
   },
   methods: {
     submit() {
-      db.collection('article')
-        .doc(this.field.title)
+      db.collection('article-test')
+        .doc(this.info.title.toLowerCase())
         .set({
-          // author: this.field.auther,
-          info: {
-            abstract: this.field.abstract,
-            contribution: this.field.contribution,
-            verify: this.field.verify
-            // tags: this.field.tags
-          }
+          author: this.author,
+          info: this.info
         })
         .then((docRef) => {
-          console.log('document written with id: ' + docRef.id)
+          // console.log('document written with id: ' + docRef.id)
           alert('success, you registered data.')
         })
         .catch((err) => {
