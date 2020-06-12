@@ -70,6 +70,9 @@ export default {
           // console.log('document written with id: ' + docRef.id)
           alert('success, you registered data.')
         })
+        .then(() => {
+          this.$router.push('/')
+        })
         .catch((err) => {
           console.log('error adding document: ' + err)
           alert('error, you faild.')
