@@ -8,21 +8,23 @@
       </p>
     </b-field>
     <div class="list is-hoverable">
-      <nuxt-link
-        :to="{ name: 'article-view' }"
-        v-for="data in datas"
-        :key="data.Ti"
-        class="list-item"
-      >
-        {{ data.Ti }}
-        ({{ data.Y }})
-      </nuxt-link>
+      <div v-for="article in articles" :key="article.title" class="list-item">
+        <div v-if="article.data !== null">
+          <nuxt-link :to="{ name: 'view', params: { data: article.data } }">
+            {{ article.title }}
+          </nuxt-link>
+        </div>
+        <div v-else>
+          {{ article.title }}
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
 import axios from 'axios'
+import firebase from '~/plugins/firebaseSettings'
 export default {
   name: 'SearchPage',
   components: {},
@@ -34,13 +36,14 @@ export default {
         count: '10',
         offset: '0',
         orderby: '',
-        attributes: 'Ti,Y,AA.AuN,AW'
+        attributes: 'Ti'
       },
-      datas: []
+      articles: []
     }
   },
   methods: {
     async searchApi() {
+      const db = firebase.firestore()
       const q = require('querystring').stringify(this.params)
       const header = {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -55,7 +58,26 @@ export default {
       const result = await axios.get(url, { headers: header })
       console.log(result.data.entities)
 
-      this.datas = result.data.entities
+      // ここから，DBにでーたがあるか確認
+      result.data.entities.forEach((el) => {
+        db.collection('article')
+          .doc(el.Ti)
+          .get()
+          .then((querySnapshot) => {
+            if (querySnapshot.exists) {
+              return querySnapshot.data()
+            } else {
+              console.log('No data')
+            }
+          })
+          .then((article) => {
+            if (article !== undefined) {
+              this.articles.push({ data: article, title: el.Ti })
+            } else {
+              this.articles.push({ data: null, title: el.Ti })
+            }
+          })
+      })
     }
   }
 }
