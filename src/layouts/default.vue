@@ -69,6 +69,11 @@ export default {
           title: 'signOut',
           icon: 'home',
           to: { name: 'signout' }
+        },
+        {
+          title: 'register',
+          icon: 'home',
+          to: { name: 'register' }
         }
       ]
     }
