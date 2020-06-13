@@ -2,7 +2,7 @@
   <section class="section">
     <h1 class="title is-2">Search Article</h1>
     <b-field grouped>
-      <b-input v-model="word" placeholder="Serach......" expanded></b-input>
+      <b-input v-model="word" placeholder="Search......" expanded></b-input>
       <p class="control">
         <button class="button is-primary" @click="searchApi">Search</button>
       </p>
@@ -50,6 +50,8 @@ export default {
       const q = require('querystring').stringify(this.params)
       const url =
         process.env.academicApiUrl + 'evaluate?expr=' + this.word + '&' + q
+
+      console.log(process.env.academicApiHeader)
 
       const result = await axios.get(url, {
         headers: process.env.academicApiHeader
