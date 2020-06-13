@@ -48,17 +48,12 @@ export default {
     async searchApi() {
       const db = firebase.firestore()
       const q = require('querystring').stringify(this.params)
-      const header = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Ocp-Apim-Subscription-Key': process.env.subscriptionKey
-      }
       const url =
-        'https://api.labs.cognitive.microsoft.com/academic/v1.0/evaluate?expr=' +
-        this.word +
-        '&' +
-        q
+        process.env.academicApiUrl + 'evaluate?expr=' + this.word + '&' + q
 
-      const result = await axios.get(url, { headers: header })
+      const result = await axios.get(url, {
+        headers: process.env.academicApiHeader
+      })
       console.log(result.data.entities)
 
       // ここから，DBにでーたがあるか確認

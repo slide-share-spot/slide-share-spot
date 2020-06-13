@@ -14,7 +14,12 @@ export default {
     messagingServiceId: process.env.messagingServiceId,
     appId: process.env.appId,
     measurementId: process.env.measurementId,
-    subscriptionKey: process.env.subscriptionKey
+    subscriptionKey: process.env.subscriptionKey,
+    academicApiUrl: process.env.academicApiUrl || 'https://api.labs.cognitive.microsoft.com/academic/v1.0/',
+    academicApiHeader: process.env.academicApiHeader || {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Ocp-Apim-Subscription-Key': process.env.subscriptionKey
+    }
   },
   head: {
     title: process.env.npm_package_name || '',
