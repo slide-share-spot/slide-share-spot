@@ -22,7 +22,7 @@
         >No other internal dependency</card
       >
     </div>
-    <button @click="getUsers">get</button>
+    <button @click="getUsername">get</button>
   </section>
 </template>
 
@@ -37,15 +37,9 @@ export default {
     Card
   },
   methods: {
-    getUsers() {
-      const db = firebase.firestore()
-      db.collection('users')
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            console.log(doc.data())
-          })
-        })
+    async getUsername() {
+      const user = await firebase.auth().currentUser
+      console.log(user)
     }
   }
 }

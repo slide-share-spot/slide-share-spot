@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { auth } from '~/plugins/firebaseSettings'
 export default {
   data() {
     return {
@@ -43,7 +44,9 @@ export default {
           message: 'ログインできました',
           type: 'is-success'
         })
-        this.$router.push('/')
+        const user = auth.currentUser
+        if (user.displayName === null) this.$router.push('/register-username')
+        else this.$router.push('/')
       }
     }
   }
