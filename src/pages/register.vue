@@ -21,13 +21,13 @@
         <b-input v-model="info.year"></b-input>
       </b-field>
       <b-field label="著者名">
-        <b-input v-model="author.name"></b-input>
+        <b-input v-model="info.author[0].name"></b-input>
       </b-field>
       <b-field label="著者の所属">
-        <b-input v-model="author.institute"></b-input>
+        <b-input v-model="info.author[0].institute"></b-input>
       </b-field>
       <b-field label="タグ">
-        <b-input v-model="info.tag"></b-input>
+        <b-input v-model="info.tag[0].tagname"></b-input>
       </b-field>
     </div>
     <button :disabled="!info.title" @click="submit()">投稿する</button>
@@ -48,12 +48,13 @@ export default {
         contribution: '',
         verify: '',
         year: '',
-        // tags: []
-        tag: ''
-      },
-      author: {
-        name: '',
-        institute: ''
+        tag: [{ tagname: '' }],
+        author: [
+          {
+            name: '',
+            institute: ''
+          }
+        ]
       }
     }
   },
@@ -63,7 +64,6 @@ export default {
       db.collection('article-test')
         .doc(this.info.title.toLowerCase())
         .set({
-          author: this.author,
           info: this.info
         })
         .then((docRef) => {
