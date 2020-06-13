@@ -4,7 +4,7 @@
     <b-field grouped>
       <b-input v-model="word" placeholder="Serach......" expanded></b-input>
       <p class="control">
-        <button @click="searchApi" class="button is-primary">Search</button>
+        <button class="button is-primary" @click="searchApi">Search</button>
       </p>
     </b-field>
     <div class="list is-hoverable">
