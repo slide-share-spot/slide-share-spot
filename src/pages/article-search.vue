@@ -9,8 +9,11 @@
     </b-field>
     <div class="list is-hoverable">
       <div v-for="article in articles" :key="article.title" class="list-item">
+        <!-- データなかったら，nullにしています． -->
         <div v-if="article.data !== null">
-          <nuxt-link :to="{ name: 'view', params: { data: article.data } }">
+          <nuxt-link
+            :to="{ name: 'article-view', params: { data: article.data } }"
+          >
             {{ article.title }}
           </nuxt-link>
         </div>
@@ -60,7 +63,7 @@ export default {
 
       // ここから，DBにでーたがあるか確認
       result.data.entities.forEach((el) => {
-        db.collection('article')
+        db.collection('article-test')
           .doc(el.Ti)
           .get()
           .then((querySnapshot) => {

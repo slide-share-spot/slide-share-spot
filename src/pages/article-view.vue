@@ -1,9 +1,9 @@
 <template>
   <section class="section">
     <h1 class="title is-2">{{ title }}</h1>
-    <div v-for="author in authors" :key="author.id">
-      {{ author.name }}
-      ({{ author.institute }})
+    <div v-for="a in author" :key="a.name">
+      {{ a.name }}
+      ({{ a.institute }})
     </div>
 
     <div class="columns">
@@ -21,54 +21,28 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebaseSettings'
-import 'firebase/storage'
-
 export default {
   name: 'ViewPage',
   components: {},
+  asyncData({ params }) {
+    const t = params.data.info.title
+    const abs = params.data.info.abstract
+    const au = params.data.info.author
+    const cont = params.data.info.contribution
+    const ver = params.data.info.verify
+
+    return {
+      title: t,
+      abstract: abs,
+      author: au,
+      contribution: cont,
+      verify: ver
+    }
+  },
   data() {
     return {
-      title: '',
-      imgs: [],
-      authors: [],
-      abstract: '',
-      contribution: '',
-      verify: ''
+      imgs: []
     }
-  },
-  methods: {
-    getArticle() {
-      const db = firebase.firestore()
-      const storageRef = firebase.storage().ref()
-
-      db.collection('article')
-        .doc(
-          'audio-substituting-haptic-system-to-aware-the-sound-from-backwards'
-        )
-        .get()
-        .then((querySnapshot) => {
-          return querySnapshot.data()
-        })
-        .then((data) => {
-          this.title = data.name
-          this.authors = data.authors
-          data.imgURL.forEach((path) => {
-            storageRef
-              .child(path)
-              .getDownloadURL()
-              .then((u) => {
-                this.imgs.push({ url: u, id: this.imgs.length })
-              })
-          })
-          this.abstract = data.inf.abstract
-          this.contribution = data.inf.contribution
-          this.verify = data.inf.verify
-        })
-    }
-  },
-  mounted() {
-    this.getArticle()
   }
 }
 </script>
