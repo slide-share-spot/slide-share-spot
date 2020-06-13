@@ -63,6 +63,7 @@ export default {
 
       // ここから，DBにでーたがあるか確認
       result.data.entities.forEach((el) => {
+        // 一旦テストドキュメントに対してアクセスするようにしています．
         db.collection('article-test')
           .doc(el.Ti)
           .get()
