@@ -74,6 +74,11 @@ export default {
           title: 'register',
           icon: 'home',
           to: { name: 'register' }
+        },
+        {
+          title: 'search',
+          icon: 'home',
+          to: { name: 'article-search' }
         }
       ]
     }
