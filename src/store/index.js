@@ -2,20 +2,15 @@ import { auth } from '~/plugins/firebaseSettings'
 
 // TODO: userのdisplayname,メアドやセッション情報を保持
 export const state = () => ({
-  user: null,
-  isAuthorized: false,
-  email: null
+  user: null
 })
 
 export const mutations = {
-  login(state, email) {
-    state.isAuthorized = true
-    state.email = email
+  login(state, user) {
+    state.user = user.displayName
   },
   logout(state) {
-    state.isAuthorized = false
-    state.email = null
-    // localStorage.removeItem('slide-share-spot')
+    state.user = null
   }
 }
 
@@ -27,7 +22,7 @@ export const actions = {
         .then((res) => {
           if (res.user.emailVerified) {
             // メアド認証が終わっていればloginコミットを打つ
-            commit('login', res.user.email)
+            commit('login', res.user)
           }
           console.log(res.user)
           // resolveは認証されてるかどうかのT/Fを返す
@@ -56,10 +51,7 @@ export const actions = {
 }
 
 export const getters = {
-  isAuthorized(state) {
-    return state.isAuthorized
-  },
-  userEmail(state) {
-    return state.email
+  username(state) {
+    return state.user
   }
 }
