@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebaseSettings'
+import { auth, authProviderEmail } from '~/plugins/firebaseSettings'
 export default {
   data() {
     return {
@@ -39,24 +39,17 @@ export default {
     async signUp() {
       try {
         // メアドがすでに使われているかの確認
-        const providers = await firebase
-          .auth()
-          .fetchSignInMethodsForEmail(this.email)
-        if (
-          providers.findIndex(
-            (p) =>
-              p ===
-              firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
-          ) !== -1
-        ) {
+        const providers = await auth.fetchSignInMethodsForEmail(this.email)
+        if (providers.findIndex((p) => p === authProviderEmail) !== -1) {
           alert('登録されています')
           return
         }
 
         // 新規の場合ユーザの作成
-        const res = await firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
+        const res = await auth.createUserWithEmailAndPassword(
+          this.email,
+          this.password
+        )
 
         // 確認メールの送信
         res.user
