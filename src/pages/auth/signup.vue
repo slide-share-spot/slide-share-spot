@@ -1,6 +1,11 @@
 <template>
   <div class="container">
     <h1>これはサインアップ用のページ</h1>
+    <p>
+      もしすでにアカウントを作成していたら
+      <nuxt-link to="/auth/signin">サインインのページ</nuxt-link>
+      でサインインしてください
+    </p>
     <div>
       <b-field label="Email">
         <b-input v-model="email" type="email" value="john@"></b-input>
