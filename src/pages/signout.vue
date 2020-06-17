@@ -15,7 +15,7 @@ export default {
       const res = await this.$store.dispatch('logout')
       if (res === 'success') {
         this.$buefy.toast.open({
-          message: 'ログoutできましt＾あ',
+          message: 'ログoutできました',
           type: 'is-success'
         })
         this.$router.push('/')

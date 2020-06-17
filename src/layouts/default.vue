@@ -9,11 +9,22 @@
         <a class="navbar-item" href="/">
           <img src="~assets/buefy.png" alt="Buefy" height="28" />
         </a>
-
         <div class="navbar-burger">
           <span />
           <span />
           <span />
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <nuxt-link to="/auth/signup" class="button is-primary">
+              <strong>Sign up</strong>
+            </nuxt-link>
+            <nuxt-link to="/auth/signin" class="button is-light">
+              Log in
+            </nuxt-link>
+          </div>
         </div>
       </div>
     </nav>
@@ -53,16 +64,6 @@ export default {
           title: 'Inspire',
           icon: 'lightbulb',
           to: { name: 'inspire' }
-        },
-        {
-          title: 'Signup',
-          icon: 'home',
-          to: { name: 'signup' }
-        },
-        {
-          title: 'signIn',
-          icon: 'home',
-          to: { name: 'signin' }
         },
         {
           title: 'signOut',

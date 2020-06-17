@@ -53,5 +53,8 @@ export const actions = {
 export const getters = {
   username(state) {
     return state.user
+  },
+  isAuthenticated(state) {
+    return !!state.user
   }
 }
