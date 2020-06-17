@@ -9,11 +9,25 @@
         <a class="navbar-item" href="/">
           <img src="~assets/buefy.png" alt="Buefy" height="28" />
         </a>
-
         <div class="navbar-burger">
           <span />
           <span />
           <span />
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div v-if="!isLogin" class="buttons">
+            <nuxt-link to="/auth/signup" class="button is-primary">
+              <strong>Sign up</strong>
+            </nuxt-link>
+            <nuxt-link to="/auth/signin" class="button is-light">
+              Log in
+            </nuxt-link>
+          </div>
+          <div v-else class="buttons">
+            <button class="button is-light" @click="logout()">Log out</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -21,8 +35,7 @@
     <section class="main-content columns">
       <aside class="column is-2 section">
         <p class="menu-label is-hidden-touch">General</p>
-        <p>login state: {{ state }}</p>
-        <p>email: {{ email }}</p>
+        <p>username: {{ username }}</p>
         <ul class="menu-list">
           <li v-for="(item, key) of items" :key="key">
             <nuxt-link :to="item.to" exact-active-class="is-active">
@@ -56,21 +69,6 @@ export default {
           to: { name: 'inspire' }
         },
         {
-          title: 'Signup',
-          icon: 'home',
-          to: { name: 'signup' }
-        },
-        {
-          title: 'signIn',
-          icon: 'home',
-          to: { name: 'signin' }
-        },
-        {
-          title: 'signOut',
-          icon: 'home',
-          to: { name: 'signout' }
-        },
-        {
           title: 'register',
           icon: 'home',
           to: { name: 'register' }
@@ -84,11 +82,21 @@ export default {
     }
   },
   computed: {
-    state() {
-      return this.$store.getters.isAuthorized
+    username() {
+      return this.$store.getters.username
     },
-    email() {
-      return this.$store.getters.userEmail
+    isLogin() {
+      return this.$store.getters.isAuthenticated
+    }
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch('logout')
+      this.$buefy.toast.open({
+        message: 'ログoutできました',
+        type: 'is-success'
+      })
+      this.$router.push('/')
     }
   }
 }
