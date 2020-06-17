@@ -50,8 +50,8 @@ export default {
       const q = require('querystring').stringify(this.params)
       const url =
         process.env.academicApiUrl + 'evaluate?expr=' + this.word + '&' + q
-
-      console.log(process.env.academicApiHeader)
+      // 非常に危なかったので消した．
+      // console.log(process.env.academicApiHeader)
 
       const result = await axios.get(url, {
         headers: process.env.academicApiHeader

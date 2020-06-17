@@ -61,8 +61,16 @@ export default {
   methods: {
     submit() {
       if (this.info.title === '') return
+
+      // test code
+      const normaltitle = this.info.title
+        .toLowerCase()
+        .replace(/\W/g, ' ')
+        .replace(/\s{2}/g, ' ')
+
+      // test fin
       db.collection('article-test')
-        .doc(this.info.title.toLowerCase())
+        .doc(normaltitle)
         .set({
           info: this.info
         })
