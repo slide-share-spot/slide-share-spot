@@ -33,20 +33,9 @@ export const actions = {
         })
     })
   },
-  logout({ commit }) {
-    return new Promise((resolve, reject) => {
-      auth
-        .signOut()
-        .then(() => {
-          // ログアウトコミットを打つ
-          commit('logout')
-          resolve('success')
-        })
-        .catch((err) => {
-          console.log(err)
-          reject(err)
-        })
-    })
+  async logout({ commit }) {
+    await auth.signOut()
+    commit('logout')
   }
 }
 

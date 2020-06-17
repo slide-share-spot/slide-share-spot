@@ -81,14 +81,12 @@ export default {
   },
   methods: {
     async logout() {
-      const res = await this.$store.dispatch('logout')
-      if (res === 'success') {
-        this.$buefy.toast.open({
-          message: 'ログoutできました',
-          type: 'is-success'
-        })
-        this.$router.push('/')
-      }
+      await this.$store.dispatch('logout')
+      this.$buefy.toast.open({
+        message: 'ログoutできました',
+        type: 'is-success'
+      })
+      this.$router.push('/')
     }
   }
 }
