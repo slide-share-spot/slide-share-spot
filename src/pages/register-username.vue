@@ -25,14 +25,12 @@ export default {
       try {
         const user = await firebase.auth().currentUser
         if (user) {
-          user
-            .updateProfile({
-              displayName: this.displayname
-            })
-            .then(() => {
-              alert('success, you set displayname.')
-            })
-            .then(() => this.$router.push('/'))
+          await user.updateProfile({
+            displayName: this.displayname
+          })
+          alert('success')
+          this.$store.dispatch('login', { displayname: this.displayname })
+          this.$router.push('/')
         }
       } catch (error) {
         console.log(error)

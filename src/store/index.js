@@ -6,8 +6,8 @@ export const state = () => ({
 })
 
 export const mutations = {
-  login(state, user) {
-    state.user = user.displayName
+  login(state, displayName) {
+    state.user = displayName
   },
   logout(state) {
     state.user = null
@@ -15,23 +15,8 @@ export const mutations = {
 }
 
 export const actions = {
-  login({ commit }, { email, password }) {
-    return new Promise((resolve, reject) => {
-      auth
-        .signInWithEmailAndPassword(email, password)
-        .then((res) => {
-          if (res.user.emailVerified) {
-            // メアド認証が終わっていればloginコミットを打つ
-            commit('login', res.user)
-          }
-          console.log(res.user)
-          // resolveは認証されてるかどうかのT/Fを返す
-          resolve(res.user.emailVerified)
-        })
-        .catch((err) => {
-          reject(err)
-        })
-    })
+  login({ commit }, { displayName }) {
+    commit('login', displayName)
   },
   async logout({ commit }) {
     await auth.signOut()

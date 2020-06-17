@@ -32,26 +32,37 @@ export default {
   },
   methods: {
     async signIn() {
-      const res = await this.$store.dispatch('login', {
-        email: this.email,
-        password: this.password
-      })
-      console.log(res)
+      try {
+        const res = await auth.signInWithEmailAndPassword(
+          this.email,
+          this.password
+        )
 
-      // resにはメール確認済みかどうかのt/fが入っている
-      if (!res) {
-        this.$buefy.toast.open({
-          message: 'メアドの確認をしてください',
-          type: 'is-success'
-        })
-      } else {
+        console.log(res)
+
+        if (!res.user.emailVerified) {
+          this.$buefy.toast.open({
+            message: 'メアドの確認をしてください',
+            type: 'is-success'
+          })
+          return
+        }
+
         this.$buefy.toast.open({
           message: 'ログインできました',
           type: 'is-success'
         })
-        const user = auth.currentUser
-        if (user.displayName === null) this.$router.push('/register-username')
-        else this.$router.push('/')
+
+        if (res.user.displayName == null)
+          this.$router.push('/register-username')
+        else {
+          this.$store.dispatch('login', {
+            displayName: res.user.displayName
+          })
+          this.$router.push('/')
+        }
+      } catch (error) {
+        console.log(error)
       }
     }
   }
