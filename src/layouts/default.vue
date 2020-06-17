@@ -17,13 +17,16 @@
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
-          <div class="buttons">
+          <div v-if="!isLogin" class="buttons">
             <nuxt-link to="/auth/signup" class="button is-primary">
               <strong>Sign up</strong>
             </nuxt-link>
             <nuxt-link to="/auth/signin" class="button is-light">
               Log in
             </nuxt-link>
+          </div>
+          <div v-else class="buttons">
+            <button class="button is-light" @click="logout()">Log out</button>
           </div>
         </div>
       </div>
@@ -64,11 +67,6 @@ export default {
           title: 'Inspire',
           icon: 'lightbulb',
           to: { name: 'inspire' }
-        },
-        {
-          title: 'signOut',
-          icon: 'home',
-          to: { name: 'signout' }
         }
       ]
     }
@@ -76,6 +74,21 @@ export default {
   computed: {
     username() {
       return this.$store.getters.username
+    },
+    isLogin() {
+      return this.$store.getters.isAuthenticated
+    }
+  },
+  methods: {
+    async logout() {
+      const res = await this.$store.dispatch('logout')
+      if (res === 'success') {
+        this.$buefy.toast.open({
+          message: 'ログoutできました',
+          type: 'is-success'
+        })
+        this.$router.push('/')
+      }
     }
   }
 }
