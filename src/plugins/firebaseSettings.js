@@ -23,3 +23,4 @@ export default firebase
 export const auth = firebase.auth()
 export const authProviderEmail =
   firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
+export const db = firebase.firestore()

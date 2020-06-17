@@ -67,6 +67,16 @@ export default {
           title: 'Inspire',
           icon: 'lightbulb',
           to: { name: 'inspire' }
+        },
+        {
+          title: 'register',
+          icon: 'home',
+          to: { name: 'register' }
+        },
+        {
+          title: 'search',
+          icon: 'home',
+          to: { name: 'article-search' }
         }
       ]
     }
