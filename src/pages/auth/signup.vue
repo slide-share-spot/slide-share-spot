@@ -19,6 +19,7 @@
           password-reveal
         ></b-input>
       </b-field>
+      <span>パスワードは6文字以上で設定してください</span>
     </div>
     <div>
       <b-button @click="signUp">signUp</b-button>
@@ -69,7 +70,15 @@ export default {
             this.$router.push('/')
           })
       } catch (e) {
-        console.error(e)
+        console.log(e)
+        switch (e.code) {
+          case 'auth/invalid-email':
+            alert('メールアドレスの形式が正しくありません')
+            break
+          case 'auth/weak-password':
+            alert('パスワードは6文字以上で設定してください')
+            break
+        }
       }
     }
   }
