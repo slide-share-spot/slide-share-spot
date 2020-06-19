@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>これはサインイン用のページ</h1>
+    <h1>これはログイン用のページ</h1>
     <p>
       もしまだアカウントを作成していなかったら
       <nuxt-link to="/auth/signup">サインアップのページ</nuxt-link>
@@ -16,7 +16,7 @@
       </b-field>
     </div>
     <div>
-      <b-button @click="signIn">signIn</b-button>
+      <b-button @click="logIn">logIn</b-button>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    async signIn() {
+    async logIn() {
       try {
         if (this.email === '' || this.password === '') {
           alert('フォームが空です')

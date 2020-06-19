@@ -3,7 +3,7 @@
     <h1>これはサインアップ用のページ</h1>
     <p>
       もしすでにアカウントを作成していたら
-      <nuxt-link to="/auth/signin">サインインのページ</nuxt-link
+      <nuxt-link to="/auth/login">ログインのページ</nuxt-link
       >でサインインしてください
     </p>
     <div>
