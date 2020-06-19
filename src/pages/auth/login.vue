@@ -65,8 +65,22 @@ export default {
           })
           this.$router.push('/')
         }
-      } catch (error) {
-        console.log(error)
+      } catch (e) {
+        console.log(e)
+        switch (e.code) {
+          case 'auth/user-not-found':
+            alert('ユーザが登録されていません')
+            break
+          case 'auth/wrong-password':
+            alert('パスワードが間違っています')
+            break
+          case 'auth/too-many-requests':
+            alert('しばらく時間を置いてください')
+            break
+          default:
+            alert('エラーが発生したようです')
+            break
+        }
       }
     }
   }

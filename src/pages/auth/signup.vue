@@ -78,6 +78,9 @@ export default {
           case 'auth/weak-password':
             alert('パスワードは6文字以上で設定してください')
             break
+          default:
+            alert('エラーが発生したようです')
+            break
         }
       }
     }
