@@ -3,8 +3,8 @@
     <h1>これはサインアップ用のページ</h1>
     <p>
       もしすでにアカウントを作成していたら
-      <nuxt-link to="/auth/signin">サインインのページ</nuxt-link>
-      でサインインしてください
+      <nuxt-link to="/auth/signin">サインインのページ</nuxt-link
+      >でサインインしてください
     </p>
     <div>
       <b-field label="Email">
@@ -38,6 +38,10 @@ export default {
   methods: {
     async signUp() {
       try {
+        if (this.email === '' || this.password === '') {
+          alert('フォームが空です')
+          return
+        }
         // メアドがすでに使われているかの確認
         const providers = await auth.fetchSignInMethodsForEmail(this.email)
         if (providers.findIndex((p) => p === authProviderEmail) !== -1) {

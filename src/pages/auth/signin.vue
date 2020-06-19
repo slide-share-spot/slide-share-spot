@@ -33,6 +33,10 @@ export default {
   methods: {
     async signIn() {
       try {
+        if (this.email === '' || this.password === '') {
+          alert('フォームが空です')
+          return
+        }
         const res = await auth.signInWithEmailAndPassword(
           this.email,
           this.password
