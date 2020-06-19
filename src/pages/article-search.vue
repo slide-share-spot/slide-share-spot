@@ -1,12 +1,16 @@
 <template>
   <section class="section">
     <h1 class="title is-2">Search Article</h1>
-    <b-field grouped>
+    <b-field label="Title Keywords">
       <b-input v-model="word" placeholder="Search......" expanded></b-input>
-      <p class="control">
-        <button class="button is-primary" @click="searchApi">Search</button>
-      </p>
     </b-field>
+    <b-field label="Display Number" grouped>
+      <b-slider v-model="params.count"></b-slider>
+      <b-input v-model="params.count"></b-input>
+    </b-field>
+    <div class="buttons">
+      <b-button type="is-primary" @click="searchApi" expanded>Search</b-button>
+    </div>
     <div class="list is-hoverable">
       <div v-for="article in articles" :key="article.title" class="list-item">
         <!-- データなかったら，nullにしています． -->
@@ -36,7 +40,7 @@ export default {
       word: '',
       params: {
         model: 'latest',
-        count: '10',
+        count: 10,
         offset: '0',
         orderby: '',
         attributes: 'Ti'
@@ -46,6 +50,7 @@ export default {
   },
   methods: {
     async searchApi() {
+      this.articles = []
       const db = firebase.firestore()
       const q = require('querystring').stringify(this.params)
       const url =
