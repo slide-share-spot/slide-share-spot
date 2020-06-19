@@ -21,7 +21,7 @@
             <nuxt-link to="/auth/signup" class="button is-primary">
               <strong>Sign up</strong>
             </nuxt-link>
-            <nuxt-link to="/auth/signin" class="button is-light">
+            <nuxt-link to="/auth/login" class="button is-light">
               Log in
             </nuxt-link>
           </div>

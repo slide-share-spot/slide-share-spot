@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>これはサインイン用のページ</h1>
+    <h1>これはログイン用のページ</h1>
     <p>
       もしまだアカウントを作成していなかったら
       <nuxt-link to="/auth/signup">サインアップのページ</nuxt-link>
@@ -16,7 +16,7 @@
       </b-field>
     </div>
     <div>
-      <b-button @click="signIn">signIn</b-button>
+      <b-button @click="logIn">logIn</b-button>
     </div>
   </div>
 </template>
@@ -31,8 +31,12 @@ export default {
     }
   },
   methods: {
-    async signIn() {
+    async logIn() {
       try {
+        if (this.email === '' || this.password === '') {
+          alert('フォームが空です')
+          return
+        }
         const res = await auth.signInWithEmailAndPassword(
           this.email,
           this.password
@@ -61,8 +65,22 @@ export default {
           })
           this.$router.push('/')
         }
-      } catch (error) {
-        console.log(error)
+      } catch (e) {
+        console.log(e)
+        switch (e.code) {
+          case 'auth/user-not-found':
+            alert('ユーザが登録されていません')
+            break
+          case 'auth/wrong-password':
+            alert('パスワードが間違っています')
+            break
+          case 'auth/too-many-requests':
+            alert('しばらく時間を置いてください')
+            break
+          default:
+            alert('エラーが発生したようです')
+            break
+        }
       }
     }
   }

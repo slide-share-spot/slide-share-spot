@@ -3,8 +3,8 @@
     <h1>これはサインアップ用のページ</h1>
     <p>
       もしすでにアカウントを作成していたら
-      <nuxt-link to="/auth/signin">サインインのページ</nuxt-link>
-      でサインインしてください
+      <nuxt-link to="/auth/login">ログインのページ</nuxt-link
+      >でサインインしてください
     </p>
     <div>
       <b-field label="Email">
@@ -19,6 +19,7 @@
           password-reveal
         ></b-input>
       </b-field>
+      <span>パスワードは6文字以上で設定してください</span>
     </div>
     <div>
       <b-button @click="signUp">signUp</b-button>
@@ -38,6 +39,10 @@ export default {
   methods: {
     async signUp() {
       try {
+        if (this.email === '' || this.password === '') {
+          alert('フォームが空です')
+          return
+        }
         // メアドがすでに使われているかの確認
         const providers = await auth.fetchSignInMethodsForEmail(this.email)
         if (providers.findIndex((p) => p === authProviderEmail) !== -1) {
@@ -65,7 +70,18 @@ export default {
             this.$router.push('/')
           })
       } catch (e) {
-        console.error(e)
+        console.log(e)
+        switch (e.code) {
+          case 'auth/invalid-email':
+            alert('メールアドレスの形式が正しくありません')
+            break
+          case 'auth/weak-password':
+            alert('パスワードは6文字以上で設定してください')
+            break
+          default:
+            alert('エラーが発生したようです')
+            break
+        }
       }
     }
   }
