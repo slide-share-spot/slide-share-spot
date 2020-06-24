@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
+import 'firebase/storage'
 
 // 環境変数のセット
 const config = {
@@ -24,3 +25,4 @@ export const auth = firebase.auth()
 export const authProviderEmail =
   firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD
 export const db = firebase.firestore()
+export const storage = firebase.storage()
