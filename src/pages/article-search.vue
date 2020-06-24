@@ -1,6 +1,9 @@
 <template>
   <section class="section">
     <h1 class="title is-2">Search Article</h1>
+    <p>
+      if you want to search a period of year, write below: [begin year,end year]
+    </p>
     <b-field label="Title Keywords">
       <b-input v-model="info.word" placeholder="Keywords......" expanded>
       </b-input>
