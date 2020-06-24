@@ -86,7 +86,11 @@ export default {
 
       if (this.info.cname !== '') {
         this.qarray.push(
-          "Composite(C.CN='" + this.info.cname.toLowerCase() + "')"
+          "Or(Composite(C.CN='" +
+            this.info.cname.toLowerCase() +
+            "'),Composite(J.JN='" +
+            this.info.cname.toLowerCase() +
+            "'))"
         )
       }
 
