@@ -2,7 +2,17 @@
   <section class="section">
     <h1 class="title is-2">Search Article</h1>
     <b-field label="Title Keywords">
-      <b-input v-model="word" placeholder="Search......" expanded></b-input>
+      <b-input v-model="info.word" placeholder="Keywords......" expanded>
+      </b-input>
+    </b-field>
+    <b-field>
+      <b-input
+        v-model="info.cname"
+        placeholder="Conference Series Name"
+        expanded
+      >
+      </b-input>
+      <b-input v-model="info.year" placeholder="Year"></b-input>
     </b-field>
     <b-field label="Display Number" grouped>
       <b-slider v-model="params.count"></b-slider>
@@ -37,7 +47,13 @@ export default {
   components: {},
   data() {
     return {
-      word: '',
+      query: '',
+      qarray: [],
+      info: {
+        word: '',
+        cname: '',
+        year: ''
+      },
       params: {
         model: 'latest',
         count: 10,
@@ -51,10 +67,56 @@ export default {
   methods: {
     async searchApi() {
       this.articles = []
+      this.query = ''
       const db = firebase.firestore()
-      const q = require('querystring').stringify(this.params)
+
+      // create query
+      const spword = this.info.word
+        .toLowerCase()
+        .replace(/\W/g, ' ')
+        .replace(/\s{2}/g, ' ')
+        .split(' ')
+
+      spword.forEach((el) => {
+        if (el !== '') {
+          this.qarray.push("W='" + el + "'")
+        }
+      })
+
+      if (this.info.cname !== '') {
+        this.qarray.push("Composite(C.CN='" + this.info.cname + "')")
+      }
+
+      if (this.info.year !== '') {
+        this.qarray.push('Y=' + this.info.year)
+      }
+
+      if (this.qarray.length === 0) {
+        // error handling
+        return
+      } else if (this.qarray.length === 1) {
+        this.query = this.qarray[0]
+      } else {
+        this.query = this.query + 'And('
+        this.qarray.forEach((el) => {
+          this.query = this.query + el + ','
+        })
+        this.query = this.query.slice(0, -1)
+        this.query = this.query + ')'
+      }
+
+      console.log(this.query)
+
+      // created
+
+      // create search options
+      const options = require('querystring').stringify(this.params)
       const url =
-        process.env.academicApiUrl + 'evaluate?expr=' + this.word + '&' + q
+        process.env.academicApiUrl +
+        'evaluate?expr=' +
+        this.query +
+        '&' +
+        options
       // 非常に危なかったので消した．
       // console.log(process.env.academicApiHeader)
 
