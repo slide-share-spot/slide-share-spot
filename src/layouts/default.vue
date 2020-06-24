@@ -77,6 +77,11 @@ export default {
           title: 'search',
           icon: 'home',
           to: { name: 'article-search' }
+        },
+        {
+          title: 'upload file',
+          icon: 'home',
+          to: { name: 'upload-file' }
         }
       ]
     }

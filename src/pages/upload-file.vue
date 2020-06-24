@@ -29,9 +29,11 @@ export default {
     },
     async upload() {
       try {
-        const storageRef = storage.ref(this.file.name)
-        await storageRef.put(this.file)
-        console.log('アップロードが終わりました')
+        const storageRef = storage.ref()
+        const targetRef = storageRef.child('images/' + this.file.name)
+        await targetRef.put(this.file)
+        alert('アップロードが完了しました')
+        this.$router.push('/')
       } catch (error) {
         console.log(error)
       }
