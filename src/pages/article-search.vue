@@ -85,7 +85,9 @@ export default {
       })
 
       if (this.info.cname !== '') {
-        this.qarray.push("Composite(C.CN='" + this.info.cname + "')")
+        this.qarray.push(
+          "Composite(C.CN='" + this.info.cname.toLowerCase() + "')"
+        )
       }
 
       if (this.info.year !== '') {
