@@ -1,8 +1,15 @@
 <template>
   <div class="container">
     <h1>ファイルをアップロードするぞ！</h1>
-    <input type="file" accept="image/*" @change="uploadedFile" />
-    <img :src="imagePath" />
+    <input
+      type="file"
+      accept="image/*"
+      multiple="multiple"
+      @change="uploadedFile"
+    />
+    <div v-for="file in files" :key="file.name">
+      <img :src="file.imagePath" />
+    </div>
     <button @click="upload()">アップロード</button>
   </div>
 </template>
@@ -13,18 +20,20 @@ import { storage } from '~/plugins/firebaseSettings'
 export default {
   data() {
     return {
-      file: null,
-      imagePath: null
+      files: []
     }
   },
   methods: {
     uploadedFile(e) {
       const file = e.target.files[0]
-      this.file = file
       const reader = new FileReader()
       reader.readAsDataURL(file)
+      const obj = {}
       reader.onload = () => {
-        this.imagePath = reader.result
+        obj.imagePath = reader.result
+        obj.file = file
+        obj.name = file.name
+        this.files.push(obj)
       }
     },
     async upload() {
