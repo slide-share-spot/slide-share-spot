@@ -68,6 +68,7 @@ export default {
     async searchApi() {
       this.articles = []
       this.query = ''
+      this.qarray = []
       const db = firebase.firestore()
 
       // create query
