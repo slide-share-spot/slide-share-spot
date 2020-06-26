@@ -106,7 +106,9 @@ export default {
           })
         await Promise.all(
           this.files.map(async (e) => {
-            const targetRef = storageRef.child(this.info.title + '/' + e.name)
+            const targetRef = storageRef.child(
+              this.info.title + '/' + normaltitle
+            )
             await targetRef.put(e.file)
           })
         )
