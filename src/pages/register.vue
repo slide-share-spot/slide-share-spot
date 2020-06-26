@@ -29,13 +29,24 @@
       <b-field label="タグ">
         <b-input v-model="info.tag[0].tagname"></b-input>
       </b-field>
+      <b-field label="画像">
+        <input
+          type="file"
+          accept="image/*"
+          multiple="multiple"
+          @change="uploadedFile"
+        />
+        <div v-for="file in files" :key="file.name">
+          <img :src="file.imagePath" />
+        </div>
+      </b-field>
     </div>
     <button :disabled="!info.title" @click="submit()">投稿する</button>
   </section>
 </template>
 
 <script>
-import { db } from '~/plugins/firebaseSettings'
+import { db, storage } from '~/plugins/firebaseSettings'
 
 export default {
   name: 'HomePage',
@@ -55,11 +66,27 @@ export default {
             institute: ''
           }
         ]
-      }
+      },
+      files: []
     }
   },
   methods: {
-    submit() {
+    uploadedFile(e) {
+      console.log(e)
+      for (const k of Object.keys(e.target.files)) {
+        const file = e.target.files[k]
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        const obj = {}
+        reader.onload = () => {
+          obj.imagePath = reader.result
+          obj.file = file
+          obj.name = file.name
+          this.files.push(obj)
+        }
+      }
+    },
+    async submit() {
       if (this.info.title === '') return
 
       // test code
@@ -69,22 +96,25 @@ export default {
         .replace(/\s{2}/g, ' ')
 
       // test fin
-      db.collection('article-test')
-        .doc(normaltitle)
-        .set({
-          info: this.info
-        })
-        .then((docRef) => {
-          // console.log('document written with id: ' + docRef.id)
-          alert('success, you registered data.')
-        })
-        .then(() => {
-          this.$router.push('/')
-        })
-        .catch((err) => {
-          console.log('error adding document: ' + err)
-          alert('error, you faild.')
-        })
+      const storageRef = storage.ref()
+      try {
+        await db
+          .collection('article-test')
+          .doc(normaltitle)
+          .set({
+            info: this.info
+          })
+        await Promise.all(
+          this.files.map(async (e) => {
+            const targetRef = storageRef.child(this.info.title + '/' + e.name)
+            await targetRef.put(e.file)
+          })
+        )
+        alert('success')
+        this.$router.push('/')
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
