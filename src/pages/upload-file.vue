@@ -20,6 +20,7 @@ import { storage } from '~/plugins/firebaseSettings'
 export default {
   data() {
     return {
+      // filesは name,file,imagepathをもつオブジェクトの配列
       files: []
     }
   },
@@ -41,6 +42,7 @@ export default {
         const storageRef = storage.ref()
         await Promise.all(
           this.files.map(async (e) => {
+            // 'images/' がたぶん論文の名前になる、
             const targetRef = storageRef.child('images/' + e.name)
             await targetRef.put(e.file)
           })
