@@ -46,7 +46,6 @@
 </template>
 
 <script>
-// import { db } from '~/plugins/firebaseSettings'
 import { db, storage } from '~/plugins/firebaseSettings'
 
 export default {
@@ -107,7 +106,6 @@ export default {
           })
         await Promise.all(
           this.files.map(async (e) => {
-            // 'images/' がたぶん論文の名前になる、
             const targetRef = storageRef.child(this.info.title + '/' + e.name)
             await targetRef.put(e.file)
           })
