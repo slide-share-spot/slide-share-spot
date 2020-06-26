@@ -26,15 +26,18 @@ export default {
   },
   methods: {
     uploadedFile(e) {
-      const file = e.target.files[0]
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      const obj = {}
-      reader.onload = () => {
-        obj.imagePath = reader.result
-        obj.file = file
-        obj.name = file.name
-        this.files.push(obj)
+      console.log(e)
+      for (const k of Object.keys(e.target.files)) {
+        const file = e.target.files[k]
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        const obj = {}
+        reader.onload = () => {
+          obj.imagePath = reader.result
+          obj.file = file
+          obj.name = file.name
+          this.files.push(obj)
+        }
       }
     },
     async upload() {
