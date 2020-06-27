@@ -26,7 +26,7 @@
             </nuxt-link>
           </div>
           <div v-else class="buttons">
-            <nuxt-link to="/register" class="button is-light">Post</nuxt-link>
+            <nuxt-link to="/post" class="button is-light">Post</nuxt-link>
             <button class="button is-light" @click="logout()">Log out</button>
           </div>
         </div>
@@ -68,11 +68,6 @@ export default {
           title: 'Inspire',
           icon: 'lightbulb',
           to: { name: 'inspire' }
-        },
-        {
-          title: 'register',
-          icon: 'home',
-          to: { name: 'register' }
         },
         {
           title: 'search',
