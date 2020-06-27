@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP');
+@import '~bulma/sass/utilities/_all';
+
+body {
+  font-family: 'Noto Sans JP';
+}
+
+$primary: #327dbf;
+$primary-invert: findColorInvert($primary);
+
+$colors: (
+  "primary": ($primary, $primary-invert)
+);
+
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
