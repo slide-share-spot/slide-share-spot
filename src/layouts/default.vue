@@ -6,8 +6,8 @@
       aria-label="main navigation"
     >
       <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          <img src="~assets/buefy.png" alt="Buefy" height="28" />
+        <a class="navbar-item is-primary" href="/">
+          <span class="is-size-4 has-text-weight-bold">Slide-Share-Spot</span>
         </a>
         <div class="navbar-burger">
           <span />
@@ -26,6 +26,7 @@
             </nuxt-link>
           </div>
           <div v-else class="buttons">
+            <nuxt-link to="/post" class="button is-light">Post</nuxt-link>
             <button class="button is-light" @click="logout()">Log out</button>
           </div>
         </div>
@@ -67,11 +68,6 @@ export default {
           title: 'Inspire',
           icon: 'lightbulb',
           to: { name: 'inspire' }
-        },
-        {
-          title: 'register',
-          icon: 'home',
-          to: { name: 'register' }
         },
         {
           title: 'search',
