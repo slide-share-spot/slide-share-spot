@@ -1,51 +1,22 @@
 <template>
-  <section class="main-content columns">
-    <div class="container column is-10">
-      <nuxt />
-    </div>
+  <section class="section card">
+    <section class="is-size-2 has-text-weight-bold has-text-primary title">
+      Slide-Share-Spot
+    </section>
+    <nuxt />
   </section>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      items: [
-        {
-          title: 'Home',
-          icon: 'home',
-          to: { name: 'index' }
-        },
-        {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' }
-        },
-        {
-          title: 'search',
-          icon: 'home',
-          to: { name: 'article-search' }
-        }
-      ]
-    }
-  },
-  computed: {
-    username() {
-      return this.$store.getters.username
-    },
-    isLogin() {
-      return this.$store.getters.isAuthenticated
-    }
-  },
-  methods: {
-    async logout() {
-      await this.$store.dispatch('logout')
-      this.$buefy.toast.open({
-        message: 'ログoutできました',
-        type: 'is-success'
-      })
-      this.$router.push('/')
-    }
+export default {}
+</script>
+
+<style lang="scss" scoped>
+.section {
+  margin: 200px auto auto;
+  width: 450px;
+  .title {
+    text-align: center;
   }
 }
-</script>
+</style>
