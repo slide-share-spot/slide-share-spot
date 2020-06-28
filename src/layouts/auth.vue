@@ -1,8 +1,11 @@
 <template>
   <section class="section card">
-    <section class="is-size-2 has-text-weight-bold has-text-primary title">
-      Slide-Share-Spot
-    </section>
+    <nuxt-link to="/">
+      <section class="is-size-2 has-text-weight-bold has-text-primary title">
+        Slide-Share-Spot
+      </section>
+    </nuxt-link>
+
     <nuxt />
   </section>
 </template>

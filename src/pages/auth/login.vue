@@ -11,7 +11,7 @@
 
     <div class="buttons">
       <nuxt-link to="/auth/signup" class="has-text-primary">
-        アカウントを作成
+        Create account
       </nuxt-link>
       <button class="button is-primary" @click="logIn">LogIn</button>
     </div>
