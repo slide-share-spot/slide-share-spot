@@ -58,7 +58,7 @@ export default {
         // 確認メールの送信
         res.user
           .sendEmailVerification({
-            url: 'https://slide-share-spot.herokuapp.com/set-username.vue',
+            url: 'https://slide-share-spot.herokuapp.com/',
             handleCodeInApp: false
           })
           .then(() => {
