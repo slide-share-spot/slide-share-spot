@@ -30,6 +30,7 @@
 <script>
 import { auth, authProviderEmail } from '~/plugins/firebaseSettings'
 export default {
+  layout: 'auth',
   data() {
     return {
       email: '',

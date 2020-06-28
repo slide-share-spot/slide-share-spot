@@ -24,6 +24,7 @@
 <script>
 import { auth } from '~/plugins/firebaseSettings'
 export default {
+  layout: 'auth',
   data() {
     return {
       email: '',
