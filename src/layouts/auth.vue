@@ -5,7 +5,6 @@
         Slide-Share-Spot
       </section>
     </nuxt-link>
-
     <nuxt />
   </section>
 </template>
@@ -20,6 +19,7 @@ export default {}
   width: 450px;
   .title {
     text-align: center;
+    margin-bottom: 2rem;
   }
 }
 </style>
