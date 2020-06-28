@@ -1,13 +1,16 @@
 <template>
   <div class="container">
-    <h1>これはユーザーネーム設定用のページ</h1>
+    <p>最初にユーザ名を登録してください</p>
     <div>
       <b-field label="Name">
         <b-input v-model="displayName"></b-input>
       </b-field>
     </div>
-    <div>
-      <b-button @click="registerUsername">usernameの登録</b-button>
+
+    <div class="button-area">
+      <button class="button is-primary" @click="setUsername">
+        usernameの登録
+      </button>
     </div>
   </div>
 </template>
@@ -15,13 +18,14 @@
 <script>
 import { auth } from '~/plugins/firebaseSettings'
 export default {
+  layout: 'auth',
   data() {
     return {
       displayName: ''
     }
   },
   methods: {
-    async registerUsername() {
+    async setUsername() {
       try {
         const user = await auth.currentUser
         if (user) {
@@ -39,3 +43,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.button-area {
+  margin: 2rem 0 0;
+  .button {
+    display: block;
+    margin: 0 0 0 auto;
+  }
+}
+</style>

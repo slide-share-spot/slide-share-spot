@@ -56,7 +56,7 @@ export default {
         })
 
         if (res.user.displayName == null)
-          this.$router.push('/register-username')
+          this.$router.push('/auth/set-username')
         else {
           this.$store.dispatch('login', {
             displayName: res.user.displayName
