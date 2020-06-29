@@ -1,11 +1,5 @@
 <template>
   <div class="container">
-    <h1>これはサインアップ用のページ</h1>
-    <p>
-      もしすでにアカウントを作成していたら
-      <nuxt-link to="/auth/login">ログインのページ</nuxt-link
-      >でサインインしてください
-    </p>
     <div>
       <b-field label="Email">
         <b-input v-model="email" type="email" value="john@"></b-input>
@@ -21,8 +15,12 @@
       </b-field>
       <span>パスワードは6文字以上で設定してください</span>
     </div>
-    <div>
-      <b-button @click="signUp">signUp</b-button>
+
+    <div class="buttons">
+      <nuxt-link to="/auth/login" class="has-text-primary">
+        Login instead
+      </nuxt-link>
+      <button class="button is-primary" @click="signUp">signUp</button>
     </div>
   </div>
 </template>
@@ -30,6 +28,7 @@
 <script>
 import { auth, authProviderEmail } from '~/plugins/firebaseSettings'
 export default {
+  layout: 'auth',
   data() {
     return {
       email: '',
@@ -59,7 +58,7 @@ export default {
         // 確認メールの送信
         res.user
           .sendEmailVerification({
-            url: 'https://slide-share-spot.herokuapp.com/register-username.vue',
+            url: 'https://slide-share-spot.herokuapp.com/',
             handleCodeInApp: false
           })
           .then(() => {
@@ -87,3 +86,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.buttons {
+  margin: 2rem 0 0;
+  .button {
+    display: block;
+    margin: 0 0 0 auto;
+  }
+}
+</style>

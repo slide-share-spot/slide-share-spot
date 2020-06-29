@@ -1,22 +1,19 @@
 <template>
   <div class="container">
-    <h1>これはログイン用のページ</h1>
-    <p>
-      もしまだアカウントを作成していなかったら
-      <nuxt-link to="/auth/signup">サインアップのページ</nuxt-link>
-      でアカウントを作成してください。
-    </p>
-    <div>
+    <div class="input-area">
       <b-field label="Email">
         <b-input v-model="email" type="email" value="john@"></b-input>
       </b-field>
-
       <b-field label="Password">
         <b-input v-model="password" type="password" password-reveal></b-input>
       </b-field>
     </div>
-    <div>
-      <b-button @click="logIn">logIn</b-button>
+
+    <div class="buttons">
+      <nuxt-link to="/auth/signup" class="has-text-primary">
+        Create account
+      </nuxt-link>
+      <button class="button is-primary" @click="logIn">LogIn</button>
     </div>
   </div>
 </template>
@@ -24,6 +21,7 @@
 <script>
 import { auth } from '~/plugins/firebaseSettings'
 export default {
+  layout: 'auth',
   data() {
     return {
       email: '',
@@ -58,7 +56,7 @@ export default {
         })
 
         if (res.user.displayName == null)
-          this.$router.push('/register-username')
+          this.$router.push('/auth/set-username')
         else {
           this.$store.dispatch('login', {
             displayName: res.user.displayName
@@ -86,3 +84,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.buttons {
+  margin: 2rem 0 0;
+  .button {
+    display: block;
+    margin: 0 0 0 auto;
+  }
+}
+</style>
