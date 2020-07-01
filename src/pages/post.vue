@@ -26,8 +26,7 @@
       <b-field label="タグ">
         <b-input v-model="info.tag[0].tagname"></b-input>
       </b-field>
-      <b-field label="画像">
-        <p>最大4枚まで選択できます。</p>
+      <b-field label="画像(最大4枚まで選択できます)">
         <input
           type="file"
           accept="image/*"
@@ -39,10 +38,13 @@
       <div class="columns">
         <div v-for="(file, index) in files" :key="file.name" class="column">
           <img :src="file.imagePath" class="preview" />
-          <button @click="files.splice(index, 1)">Remove image</button>
+          <button class="button is-light" @click="files.splice(index, 1)">
+            Remove image
+          </button>
         </div>
       </div>
     </div>
+    <br />
     <button :disabled="!info.title" @click="submit()">投稿する</button>
   </section>
 </template>
