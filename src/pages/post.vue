@@ -8,6 +8,20 @@
       <b-field label="要約">
         <b-input v-model="info.abstract" type="textarea"></b-input>
       </b-field>
+      <b-field label="著者名・所属">
+        <div v-for="au in info.author" :key="au.id">
+          <b-input v-model="au.name" placeholder="Author"></b-input>
+          <b-input v-model="au.institute" placeholder="Institute"></b-input>
+        </div>
+      </b-field>
+      <div class="buttons">
+        <b-button type="is-primary" @click="addAuthor">
+          著者を追加する
+        </b-button>
+        <b-button type="is-danger" @click="deleteAuthor">
+          著者の欄を減らす
+        </b-button>
+      </div>
       <b-field label="新規性">
         <b-input v-model="info.contribution" type="textarea"></b-input>
       </b-field>
@@ -17,15 +31,19 @@
       <b-field label="発行年">
         <b-input v-model="info.year" type="number"></b-input>
       </b-field>
-      <b-field label="著者名">
-        <b-input v-model="info.author[0].name"></b-input>
-      </b-field>
-      <b-field label="著者の所属">
-        <b-input v-model="info.author[0].institute"></b-input>
-      </b-field>
       <b-field label="タグ">
-        <b-input v-model="info.tag[0].tagname"></b-input>
+        <div v-for="tag in info.tag" :key="tag.id">
+          <b-input v-model="tag.tagname" placeholder="Tag"></b-input>
+        </div>
       </b-field>
+      <div class="buttons">
+        <b-button type="is-primary" @click="addTag">
+          タグを追加する
+        </b-button>
+        <b-button type="is-danger" @click="deleteTag">
+          タグを減らす
+        </b-button>
+      </div>
       <b-field label="画像(最大4枚まで選択できます)">
         <input
           type="file"
@@ -65,11 +83,17 @@ export default {
         contribution: '',
         verify: '',
         year: '',
-        tag: [{ tagname: '' }],
+        tag: [
+          {
+            tagname: '',
+            id: 0
+          }
+        ],
         author: [
           {
             name: '',
-            institute: ''
+            institute: '',
+            id: 0
           }
         ]
       },
@@ -77,6 +101,29 @@ export default {
     }
   },
   methods: {
+    addAuthor() {
+      this.info.author.push({
+        name: '',
+        institute: '',
+        id: this.info.author.length
+      })
+    },
+    deleteAuthor() {
+      if (this.info.author.length !== 1) {
+        this.info.author.pop()
+      }
+    },
+    addTag() {
+      this.info.tag.push({
+        tagname: '',
+        id: this.info.tag.length
+      })
+    },
+    deleteTag() {
+      if (this.info.tag.length !== 1) {
+        this.info.tag.pop()
+      }
+    },
     uploadedFile(e) {
       console.log(e)
       for (const k of Object.keys(e.target.files)) {
