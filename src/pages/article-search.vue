@@ -29,7 +29,7 @@
         <!-- データなかったら，nullにしています． -->
         <div v-if="article.data !== null">
           <nuxt-link
-            :to="{ name: 'article-view', params: { data: article.data } }"
+            :to="{ name: 'summary', params: { data: article.data } }"
           >
             {{ article.title }}
           </nuxt-link>
