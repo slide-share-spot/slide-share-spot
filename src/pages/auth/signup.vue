@@ -38,6 +38,11 @@ export default {
       password: ''
     }
   },
+  computed: {
+    isValidEmail() {
+      return /\.ac\.jp$/.test(this.email)
+    }
+  },
   methods: {
     async signUp() {
       try {
