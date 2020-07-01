@@ -40,7 +40,9 @@ export default {
   },
   computed: {
     isValidEmail() {
-      return /\.ac\.jp$/.test(this.email)
+      return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@([a-zA-z0-9]+\.)+ac\.jp$/.test(
+        this.email
+      )
     }
   },
   methods: {
