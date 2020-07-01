@@ -39,8 +39,8 @@ export default {
     }
   },
   computed: {
-    isValidEmail() {
-      return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@([a-zA-z0-9]+\.)+ac\.jp$/.test(
+    isInValidEmail() {
+      return !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@([a-zA-z0-9]+\.)+ac\.jp$/.test(
         this.email
       )
     }
@@ -50,6 +50,11 @@ export default {
       try {
         if (this.email === '' || this.password === '') {
           alert('フォームが空です')
+          return
+        }
+
+        if (this.isInValidEmail) {
+          alert('ac.jp で終わるメールアドレスで登録してください')
           return
         }
         // メアドがすでに使われているかの確認
