@@ -1,24 +1,21 @@
 <template>
   <section class="section">
-    <h1>ここはスライド内容を投稿するページ</h1>
+    <h1>以下のフォーマットにしたがって入力してください</h1>
     <div>
       <b-field label="論文タイトル">
         <b-input v-model="info.title"></b-input>
       </b-field>
-      <b-field label="ようやく">
-        <b-input v-model="info.abstract"></b-input>
+      <b-field label="要約">
+        <b-input v-model="info.abstract" type="textarea"></b-input>
       </b-field>
-      <!-- <b-field label="著者">
-        <b-input v-model="field.auther"></b-input>
-      </b-field>-->
-      <b-field label="こんとりびゅーしょん">
-        <b-input v-model="info.contribution"></b-input>
+      <b-field label="新規性">
+        <b-input v-model="info.contribution" type="textarea"></b-input>
       </b-field>
-      <b-field label="verify">
-        <b-input v-model="info.verify"></b-input>
+      <b-field label="検証方法">
+        <b-input v-model="info.verify" type="textarea"></b-input>
       </b-field>
       <b-field label="発行年">
-        <b-input v-model="info.year"></b-input>
+        <b-input v-model="info.year" type="number"></b-input>
       </b-field>
       <b-field label="著者名">
         <b-input v-model="info.author[0].name"></b-input>
@@ -38,13 +35,13 @@
           :disabled="files.length > 3"
           @change="uploadedFile"
         />
-        <ol>
-          <li v-for="(file, index) in files" :key="file.name">
-            <img :src="file.imagePath" />
-            <button @click="files.splice(index, 1)">Remove image</button>
-          </li>
-        </ol>
       </b-field>
+      <div class="columns">
+        <div v-for="(file, index) in files" :key="file.name" class="column">
+          <img :src="file.imagePath" class="preview" />
+          <button @click="files.splice(index, 1)">Remove image</button>
+        </div>
+      </div>
     </div>
     <button :disabled="!info.title" @click="submit()">投稿する</button>
   </section>
@@ -124,3 +121,5 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped></style>
