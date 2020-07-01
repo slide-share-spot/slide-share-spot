@@ -2,8 +2,10 @@
   <div class="container">
     <div>
       <b-field label="Email">
-        <b-input v-model="email" type="email" value="john@"></b-input>
+        <b-input v-model="email" type="email" required></b-input>
       </b-field>
+      <p>このサービスは学生限定です。</p>
+      <p>メールアドレスは ac.jp で終わるものを使用してください。</p>
 
       <b-field label="Password">
         <b-input
@@ -11,6 +13,7 @@
           type="password"
           value="iwantmytreasure"
           password-reveal
+          required
         ></b-input>
       </b-field>
       <span>パスワードは6文字以上で設定してください</span>
