@@ -95,7 +95,8 @@ export default {
             institute: '',
             id: 0
           }
-        ]
+        ],
+        imgPath: []
       },
       files: []
     }
@@ -135,6 +136,8 @@ export default {
           obj.imagePath = reader.result
           obj.file = file
           obj.name = file.name
+          // 画像のurlをdatabaseのほうに登録
+          this.imgPath.push(file.name)
           this.files.push(obj)
         }
       }
