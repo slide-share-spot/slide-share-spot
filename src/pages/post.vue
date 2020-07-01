@@ -30,15 +30,20 @@
         <b-input v-model="info.tag[0].tagname"></b-input>
       </b-field>
       <b-field label="画像">
+        <p>最大4枚まで選択できます。</p>
         <input
           type="file"
           accept="image/*"
           multiple="multiple"
+          :disabled="files.length > 3"
           @change="uploadedFile"
         />
-        <div v-for="file in files" :key="file.name">
-          <img :src="file.imagePath" />
-        </div>
+        <ol>
+          <li v-for="(file, index) in files" :key="file.name">
+            <img :src="file.imagePath" />
+            <button @click="files.splice(index, 1)">Remove image</button>
+          </li>
+        </ol>
       </b-field>
     </div>
     <button :disabled="!info.title" @click="submit()">投稿する</button>
@@ -106,9 +111,7 @@ export default {
           })
         await Promise.all(
           this.files.map(async (e) => {
-            const targetRef = storageRef.child(
-              this.info.title + '/' + normaltitle
-            )
+            const targetRef = storageRef.child(normaltitle + '/' + e.name)
             await targetRef.put(e.file)
           })
         )
