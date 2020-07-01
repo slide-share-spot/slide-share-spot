@@ -1,12 +1,12 @@
 <template>
   <section class="section">
-    <h1>ここはスライド内容を投稿するページ</h1>
+    <h1>以下のフォーマットにしたがって入力してください</h1>
     <div>
       <b-field label="論文タイトル">
         <b-input v-model="info.title"></b-input>
       </b-field>
-      <b-field label="ようやく">
-        <b-input v-model="info.abstract"></b-input>
+      <b-field label="要約">
+        <b-input v-model="info.abstract" type="textarea"></b-input>
       </b-field>
       <b-field label="著者名・所属">
         <div v-for="au in info.author" :key="au.id">
@@ -22,14 +22,14 @@
           著者の欄を減らす
         </b-button>
       </div>
-      <b-field label="こんとりびゅーしょん">
-        <b-input v-model="info.contribution"></b-input>
+      <b-field label="新規性">
+        <b-input v-model="info.contribution" type="textarea"></b-input>
       </b-field>
-      <b-field label="verify">
-        <b-input v-model="info.verify"></b-input>
+      <b-field label="検証方法">
+        <b-input v-model="info.verify" type="textarea"></b-input>
       </b-field>
       <b-field label="発行年">
-        <b-input v-model="info.year"></b-input>
+        <b-input v-model="info.year" type="number"></b-input>
       </b-field>
       <b-field label="タグ">
         <div v-for="tag in info.tag" :key="tag.id">
@@ -44,19 +44,28 @@
           タグを減らす
         </b-button>
       </div>
-      <b-field label="画像">
+      <b-field label="画像(最大4枚まで選択できます)">
         <input
           type="file"
           accept="image/*"
           multiple="multiple"
+          :disabled="files.length > 3"
           @change="uploadedFile"
         />
-        <div v-for="file in files" :key="file.name">
-          <img :src="file.imagePath" />
-        </div>
       </b-field>
+      <div class="columns">
+        <div v-for="(file, index) in files" :key="file.name" class="column">
+          <img :src="file.imagePath" class="preview" />
+          <button class="button is-light" @click="files.splice(index, 1)">
+            Remove image
+          </button>
+        </div>
+      </div>
     </div>
-    <button :disabled="!info.title" @click="submit()">投稿する</button>
+    <br />
+    <button class="button is-primary" :disabled="!info.title" @click="submit()">
+      投稿する
+    </button>
   </section>
 </template>
 
@@ -150,9 +159,7 @@ export default {
           })
         await Promise.all(
           this.files.map(async (e) => {
-            const targetRef = storageRef.child(
-              this.info.title + '/' + normaltitle
-            )
+            const targetRef = storageRef.child(normaltitle + '/' + e.name)
             await targetRef.put(e.file)
           })
         )
@@ -165,3 +172,5 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped></style>
