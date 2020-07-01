@@ -45,7 +45,9 @@
       </div>
     </div>
     <br />
-    <button :disabled="!info.title" @click="submit()">投稿する</button>
+    <button class="button is-primary" :disabled="!info.title" @click="submit()">
+      投稿する
+    </button>
   </section>
 </template>
 
