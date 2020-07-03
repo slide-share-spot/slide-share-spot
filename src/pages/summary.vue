@@ -1,22 +1,34 @@
 <template>
   <section class="section">
     <h1 class="title is-2">{{ title }}</h1>
-    <p v-for="a in author" :key="a.name">
-      {{ a.name }}
-      ({{ a.institute }})
-    </p>
 
     <div class="columns">
-      <div v-for="img in imgs" :key="img.id" class="column">
-        <img :src="img.url" alt />
+      <div class="column" v-for="a in author" :key="a.name">
+        <div class="subtitle is-6">
+          {{ a.name }}
+          ({{ a.institute }})
+        </div>
       </div>
     </div>
 
-    <b-message title="Abstract">{{ abstract }}</b-message>
+    <div class="columns">
+      <div v-for="img in imgs" :key="img.id" class="column">
+        <figure class="image is-16by9">
+          <img :src="img.url" alt />
+        </figure>
+      </div>
+    </div>
 
-    <b-message title="Contribution">{{ contribution }}</b-message>
+    <div class="title is-4">Abstract</div>
+    <b-message type="is-primary">{{ abstract }}</b-message>
 
-    <b-message title="How to Verify">{{ verify }}</b-message>
+    <div class="title is-4">Contribution</div>
+    <b-message type="is-primary">
+      {{ contribution }}
+    </b-message>
+
+    <div class="title is-4">How to Verify</div>
+    <b-message type="is-primary">{{ verify }}</b-message>
   </section>
 </template>
 
