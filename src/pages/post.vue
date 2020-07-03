@@ -137,7 +137,7 @@ export default {
           obj.file = file
           obj.name = file.name
           // 画像のurlをdatabaseのほうに登録
-          this.imgPath.push(file.name)
+          this.info.imgPath.push(file.name)
           this.files.push(obj)
         }
       }
