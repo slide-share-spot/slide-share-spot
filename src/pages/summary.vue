@@ -8,7 +8,9 @@
 
     <div class="columns">
       <div v-for="img in imgs" :key="img.id" class="column">
-        <img :src="img.url" alt />
+        <figure class="image is-16by9">
+          <img :src="img.url" alt />
+        </figure>
       </div>
     </div>
 
