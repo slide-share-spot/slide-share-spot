@@ -28,9 +28,7 @@
       <div v-for="article in articles" :key="article.title" class="list-item">
         <!-- データなかったら，nullにしています． -->
         <div v-if="article.data !== null">
-          <nuxt-link
-            :to="{ name: 'article-view', params: { data: article.data } }"
-          >
+          <nuxt-link :to="{ name: 'summary', params: { data: article.data } }">
             {{ article.title }}
           </nuxt-link>
         </div>
