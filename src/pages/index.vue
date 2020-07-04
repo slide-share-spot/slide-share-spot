@@ -24,9 +24,10 @@
     <div class="buttons">
       <b-button type="is-primary" @click="searchApi" expanded>Search</b-button>
     </div>
+    <!--
+    リストからboxに変えてみた．
     <div class="list is-hoverable">
       <div v-for="article in articles" :key="article.title" class="list-item">
-        <!-- データなかったら，nullにしています． -->
         <div v-if="article.data !== null">
           <nuxt-link :to="{ name: 'summary', params: { data: article.data } }">
             {{ article.title }}
@@ -35,6 +36,35 @@
         <div v-else>
           {{ article.title }}
         </div>
+      </div>
+    </div>
+    -->
+    <div class="box" v-for="article in articles" :key="article.title">
+      <div class="media-content">
+        <div class="content">
+          <div class="title is-5" v-if="article.data !== null">
+            <nuxt-link
+              :to="{ name: 'summary', params: { data: article.data } }"
+            >
+              {{ article.title }}
+            </nuxt-link>
+          </div>
+          <div class="title is-5" v-else>
+            {{ article.title }}
+          </div>
+        </div>
+        <nav class="level is-mobile">
+          <!-- なぜかこれ入れないと右に寄らない． -->
+          <div class="level-left"></div>
+          <div class="level-right">
+            <div class="level-item">
+              <p>year: {{ article.year }}</p>
+            </div>
+            <div class="level-item">
+              <p>citation: {{ article.citation }}</p>
+            </div>
+          </div>
+        </nav>
       </div>
     </div>
   </section>
@@ -60,7 +90,7 @@ export default {
         count: 10,
         offset: '0',
         orderby: '',
-        attributes: 'Ti'
+        attributes: 'Ti,Y,CC'
       },
       articles: []
     }
@@ -148,9 +178,19 @@ export default {
           })
           .then((article) => {
             if (article !== undefined) {
-              this.articles.push({ data: article, title: el.Ti })
+              this.articles.push({
+                data: article,
+                title: el.Ti,
+                year: el.Y,
+                citation: el.CC
+              })
             } else {
-              this.articles.push({ data: null, title: el.Ti })
+              this.articles.push({
+                data: null,
+                title: el.Ti,
+                year: el.Y,
+                citation: el.CC
+              })
             }
           })
       })
