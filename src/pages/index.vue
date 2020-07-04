@@ -17,6 +17,20 @@
       </b-input>
       <b-input v-model="info.year" placeholder="Year"></b-input>
     </b-field>
+    <b-field>
+      <b-switch
+        v-model="params.orderby"
+        true-value="CC:desc"
+        false-value="Y:desc"
+      >
+        <div v-if="params.orderby === 'CC:desc'">
+          Sorted by citation
+        </div>
+        <div v-else>
+          Sorted by year
+        </div>
+      </b-switch>
+    </b-field>
     <b-field label="Display Number" grouped>
       <b-slider v-model="params.count"></b-slider>
       <b-input v-model="params.count"></b-input>
@@ -87,9 +101,9 @@ export default {
       },
       params: {
         model: 'latest',
-        count: 10,
+        count: 20,
         offset: '0',
-        orderby: '',
+        orderby: 'Y:desc',
         attributes: 'Ti,Y,CC'
       },
       articles: []
