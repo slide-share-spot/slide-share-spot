@@ -79,7 +79,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import firebase from '~/plugins/firebaseSettings'
 export default {
   name: 'SearchPage',
@@ -166,7 +165,7 @@ export default {
       // 非常に危なかったので消した．
       // console.log(process.env.academicApiHeader)
 
-      const result = await axios.get(url, {
+      const result = await this.$axios.get(url, {
         headers: process.env.academicApiHeader
       })
       console.log(result.data.entities)
