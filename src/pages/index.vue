@@ -18,18 +18,12 @@
       <b-input v-model="info.year" placeholder="Year"></b-input>
     </b-field>
     <b-field>
-      <b-switch
-        v-model="params.orderby"
-        true-value="CC:desc"
-        false-value="Y:desc"
-      >
-        <div v-if="params.orderby === 'CC:desc'">
-          Sorted by citation
-        </div>
-        <div v-else>
-          Sorted by year
-        </div>
-      </b-switch>
+      <b-radio v-model="params.orderby" native-value="CC:desc">
+        Sorted by citation
+      </b-radio>
+      <b-radio v-model="params.orderby" native-value="Y:desc">
+        Sorted by year
+      </b-radio>
     </b-field>
     <b-field label="Display Number" grouped>
       <b-slider v-model="params.count"></b-slider>
