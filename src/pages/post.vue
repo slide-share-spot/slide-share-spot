@@ -15,12 +15,10 @@
         </div>
       </b-field>
       <div class="buttons">
-        <b-button type="is-primary" @click="addAuthor">
-          著者を追加する
-        </b-button>
-        <b-button type="is-danger" @click="deleteAuthor">
-          著者の欄を減らす
-        </b-button>
+        <b-button type="is-primary" @click="addAuthor">著者を追加する</b-button>
+        <b-button type="is-danger" @click="deleteAuthor"
+          >著者の欄を減らす</b-button
+        >
       </div>
       <b-field label="新規性">
         <b-input v-model="info.contribution" type="textarea"></b-input>
@@ -37,12 +35,8 @@
         </div>
       </b-field>
       <div class="buttons">
-        <b-button type="is-primary" @click="addTag">
-          タグを追加する
-        </b-button>
-        <b-button type="is-danger" @click="deleteTag">
-          タグを減らす
-        </b-button>
+        <b-button type="is-primary" @click="addTag">タグを追加する</b-button>
+        <b-button type="is-danger" @click="deleteTag">タグを減らす</b-button>
       </div>
       <b-field label="画像(最大4枚まで選択できます)">
         <input
@@ -73,6 +67,7 @@
 import { db, storage } from '~/plugins/firebaseSettings'
 
 export default {
+  middleware: 'authenticated',
   name: 'HomePage',
   components: {},
   data() {

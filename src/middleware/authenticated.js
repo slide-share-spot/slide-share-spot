@@ -1,5 +1,10 @@
-export default function({ store, redirect }) {
-  if (!store.getters.isAuthenticated) {
-    return redirect('/auth/login')
-  }
+import { auth } from '~/plugins/firebaseSettings'
+
+export default function({ redirect }) {
+  auth.onAuthStateChanged((user) => {
+    console.log(user)
+    if (!user) {
+      return redirect('/auth/login')
+    }
+  })
 }
