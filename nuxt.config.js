@@ -57,7 +57,7 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://slide-share-spot.herokuapp.com/ogp.png'
+        content: 'https://slide-share-spot.herokuapp.com/ogp.jpg'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
