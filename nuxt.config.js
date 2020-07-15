@@ -24,6 +24,10 @@ export default {
     }
   },
   head: {
+    htmlAttrs: {
+      lang: 'ja',
+      prefix: 'og: http://ogp.me/ns#'
+    },
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -31,7 +35,29 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: 'Slide Share Spot'
+      },
+      {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: 'Slide Share Spot'
+      },
+      { hid: 'og:type', property: 'og:type', content: 'summary_large_image' },
+      {
+        hid: 'og:url',
+        property: 'og:url',
+        content: 'https://slide-share-spot.herokuapp.com/'
+      },
+      { hid: 'og:title', property: 'og:title', content: 'Slide Share Spot' },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: 'Slide Share Spot'
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: 'https://slide-share-spot.herokuapp.com/ogp.png'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
