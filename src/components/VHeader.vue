@@ -44,7 +44,7 @@ export default {
     async logout() {
       await this.$store.dispatch('logout')
       this.$buefy.toast.open({
-        message: 'ログoutできました',
+        message: 'ログアウトできました',
         type: 'is-success'
       })
       this.$router.push('/')
