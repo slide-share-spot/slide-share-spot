@@ -25,10 +25,6 @@
         Sorted by year
       </b-radio>
     </b-field>
-    <b-field label="Display Number" grouped>
-      <b-slider v-model="params.count"></b-slider>
-      <b-input v-model="params.count"></b-input>
-    </b-field>
     <div class="buttons">
       <b-button type="is-primary" @click="searchApi" expanded>Search</b-button>
     </div>
@@ -75,6 +71,28 @@
         </nav>
       </div>
     </div>
+
+    <div class="level" v-if="articles.length !== 0">
+      <div class="level-left">
+        <div class="buttons">
+          <b-button
+            type="is-primary"
+            @click="backPage"
+            v-if="params.offset !== 0"
+          >
+            Previous
+          </b-button>
+          <b-button disabled type="is-primary" @click="backPage" v-else>
+            Previous
+          </b-button>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="buttons">
+          <b-button type="is-primary" @click="turnPage">Next</b-button>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -95,7 +113,7 @@ export default {
       params: {
         model: 'latest',
         count: 20,
-        offset: '0',
+        offset: 0,
         orderby: 'Y:desc',
         attributes: 'Ti,Y,CC'
       },
@@ -201,6 +219,14 @@ export default {
             }
           })
       })
+    },
+    turnPage() {
+      this.params.offset += 20
+      this.searchApi()
+    },
+    backPage() {
+      this.params.offset -= 20
+      this.searchApi()
     }
   }
 }
