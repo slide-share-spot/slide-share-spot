@@ -11,17 +11,22 @@
       </div>
     </div>
 
-    <div v-if="isLogin" class="columns">
-      <div v-for="image in images" :key="image.id" class="column">
-        <figure class="image is-16by9">
-          <img :src="image.url" alt />
-        </figure>
+    <div v-if="!isLoading">
+      <div v-if="isLogin" class="columns">
+        <div v-for="image in images" :key="image.id" class="column">
+          <figure class="image is-16by9">
+            <img :src="image.url" alt />
+          </figure>
+        </div>
       </div>
-    </div>
 
-    <b-message v-else>
-      ログインしているユーザのみ画像を閲覧できます
-    </b-message>
+      <b-message v-else>
+        ログインしているユーザのみ画像を閲覧できます
+      </b-message>
+    </div>
+    <div v-else>
+      loading...
+    </div>
 
     <div class="title is-4">Abstract</div>
     <b-message type="is-primary">{{ article.abstract }}</b-message>
@@ -51,25 +56,28 @@ export default {
     }
   },
   data() {
-    return { images: [] }
+    return { images: [], isLoading: true }
   },
   computed: {
     isLogin() {
       return this.$store.getters.isAuthenticated
     }
   },
-  mounted() {
+  async mounted() {
     const storageRef = storage.ref()
-    this.article.imgPath.forEach(async (url) => {
-      try {
-        const u = await storageRef
-          .child(this.article.normalize + '/' + url)
-          .getDownloadURL()
-        this.images.push({ url: u, id: this.images.length })
-      } catch (e) {
-        console.log(e)
-      }
-    })
+    try {
+      await Promise.all(
+        this.article.imgPath.map(async (url) => {
+          const u = await storageRef
+            .child(this.article.normalize + '/' + url)
+            .getDownloadURL()
+          this.images.push({ url: u, id: this.images.length })
+        })
+      )
+      this.isLoading = false
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
 </script>
