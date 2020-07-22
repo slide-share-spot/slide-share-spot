@@ -11,6 +11,18 @@
       </div>
     </div>
 
+    <div v-if="isLogin" class="columns">
+      <div v-for="image in images" :key="image.id" class="column">
+        <figure class="image is-16by9">
+          <img :src="image.url" alt />
+        </figure>
+      </div>
+    </div>
+
+    <b-message v-else>
+      ログインしているユーザのみ画像を閲覧できます
+    </b-message>
+
     <div class="title is-4">Abstract</div>
     <b-message type="is-primary">{{ article.abstract }}</b-message>
 
@@ -25,21 +37,39 @@
 </template>
 
 <script>
-import { db } from '~/plugins/firebaseSettings'
+import { db, storage } from '~/plugins/firebaseSettings'
+
 export default {
   async asyncData({ params }) {
     const articleRef = db.collection('article-test')
-    // const storageRef = storage.ref()
-
     const snapShot = await articleRef.doc(params.id).get()
 
-    if (snapShot.exists) return { article: snapShot.data().info }
-    else return { article: 'data not found.' }
+    if (!snapShot.exists) return { article: { title: 'article not found' } }
+    else {
+      const data = snapShot.data().info
+      return { article: { ...data, normalize: params.id } }
+    }
+  },
+  data() {
+    return { images: [] }
   },
   computed: {
     isLogin() {
       return this.$store.getters.isAuthenticated
     }
+  },
+  mounted() {
+    const storageRef = storage.ref()
+    this.article.imgPath.forEach(async (url) => {
+      try {
+        const u = await storageRef
+          .child(this.article.normalize + '/' + url)
+          .getDownloadURL()
+        this.images.push({ url: u, id: this.images.length })
+      } catch (e) {
+        console.log(e)
+      }
+    })
   }
 }
 </script>

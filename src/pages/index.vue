@@ -91,8 +91,7 @@ export default {
       query: '',
       qarray: [],
       info: {
-        word:
-          'Audio Substituting Haptic System to Aware the Sound from Backwards',
+        word: '',
         cname: '',
         year: ''
       },
