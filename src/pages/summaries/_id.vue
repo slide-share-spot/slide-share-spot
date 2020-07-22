@@ -75,7 +75,6 @@ export default {
           this.images.push({ url: u, id: this.images.length })
         })
       )
-      this.isLoading = false
     } catch (e) {
       console.log(e)
     } finally {
