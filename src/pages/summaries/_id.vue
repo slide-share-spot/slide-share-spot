@@ -11,6 +11,7 @@
       </div>
     </div>
 
+    <div class="title is-4">Images</div>
     <div v-if="!isLoading">
       <div v-if="isLogin" class="columns">
         <div v-for="image in images" :key="image.id" class="column">
@@ -49,12 +50,11 @@ export default {
     const articleRef = db.collection('article-test')
     const snapShot = await articleRef.doc(params.id).get()
 
-    if (!snapShot.exists) return { article: { title: 'article not found' } }
-    else {
-      const data = snapShot.data().info
-      return { article: { ...data, normalize: params.id } }
-    }
+    if (snapShot.exists)
+      return { article: { ...snapShot.data().info, normalize: params.id } }
+    else return { article: { title: 'article not found' } }
   },
+  // 画像取得時に画面がブレるのでisLoadingを追加した
   data() {
     return { images: [], isLoading: true }
   },
@@ -63,6 +63,7 @@ export default {
       return this.$store.getters.isAuthenticated
     }
   },
+  // 画像はasyncDataで取ってこれないのでmountedのタイミングで取得
   async mounted() {
     const storageRef = storage.ref()
     try {
@@ -77,6 +78,7 @@ export default {
       this.isLoading = false
     } catch (e) {
       console.log(e)
+      this.isLoading = false
     }
   }
 }
