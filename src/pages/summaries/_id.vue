@@ -78,6 +78,7 @@ export default {
       this.isLoading = false
     } catch (e) {
       console.log(e)
+    } finally {
       this.isLoading = false
     }
   }
