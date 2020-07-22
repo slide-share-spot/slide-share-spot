@@ -83,3 +83,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.message {
+  margin-bottom: 1.5rem;
+}
+</style>
