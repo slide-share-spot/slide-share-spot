@@ -26,34 +26,19 @@
       </b-radio>
     </b-field>
     <div class="buttons">
-      <b-button type="is-primary" @click="searchApi" expanded>Search</b-button>
+      <b-button type="is-primary" expanded @click="searchApi">Search</b-button>
     </div>
-    <!--
-    リストからboxに変えてみた．
-    <div class="list is-hoverable">
-      <div v-for="article in articles" :key="article.title" class="list-item">
-        <div v-if="article.data !== null">
-          <nuxt-link :to="{ name: 'summary', params: { data: article.data } }">
-            {{ article.title }}
-          </nuxt-link>
-        </div>
-        <div v-else>
-          {{ article.title }}
-        </div>
-      </div>
-    </div>
-    -->
-    <div class="box" v-for="article in articles" :key="article.title">
+    <div v-for="article in articles" :key="article.title" class="box">
       <div class="media-content">
         <div class="content">
-          <div class="title is-5" v-if="article.data !== null">
+          <div v-if="article.data !== null" class="title is-5">
             <nuxt-link
-              :to="{ name: 'summary', params: { data: article.data } }"
+              :to="{ name: 'summaries-id', params: { id: article.title } }"
             >
               {{ article.title }}
             </nuxt-link>
           </div>
-          <div class="title is-5" v-else>
+          <div v-else class="title is-5">
             {{ article.title }}
           </div>
         </div>
@@ -72,17 +57,17 @@
       </div>
     </div>
 
-    <div class="level" v-if="articles.length !== 0">
+    <div v-if="articles.length !== 0" class="level">
       <div class="level-left">
         <div class="buttons">
           <b-button
+            v-if="params.offset !== 0"
             type="is-primary"
             @click="backPage"
-            v-if="params.offset !== 0"
           >
             Previous
           </b-button>
-          <b-button disabled type="is-primary" @click="backPage" v-else>
+          <b-button v-else disabled type="is-primary" @click="backPage">
             Previous
           </b-button>
         </div>
