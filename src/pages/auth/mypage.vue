@@ -11,9 +11,43 @@
           </div>
         </figure>
         <h1 class="title is-3">@{{ username }}</h1>
+        {{ discription }}
       </div>
       <div class="column">
-        {{ username }}
+        <h1 class="title is-3">Create Article Summary</h1>
+        <div class="box" v-for="article in editor" :key="article.title">
+          <div class="media-content">
+            <div class="content">
+              <div class="title is-5" v-if="article.data !== null">
+                <nuxt-link
+                  :to="{ name: 'summary', params: { data: article.data } }"
+                >
+                  {{ article.title }}
+                </nuxt-link>
+              </div>
+              <div class="title is-5" v-else>
+                {{ article.title }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <h1 class="title is-3">Contibute Article Summary</h1>
+        <div class="box" v-for="article in contributed" :key="article.title">
+          <div class="media-content">
+            <div class="content">
+              <div class="title is-5" v-if="article.data !== null">
+                <nuxt-link
+                  :to="{ name: 'summary', params: { data: article.data } }"
+                >
+                  {{ article.title }}
+                </nuxt-link>
+              </div>
+              <div class="title is-5" v-else>
+                {{ article.title }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -25,7 +59,27 @@ export default {
   data() {
     return {
       username: '',
-      photoURL: ''
+      photoURL: '',
+      discription: 'sample discription, sample discription',
+      editor: [
+        {
+          title: 'sample article1'
+        },
+        {
+          title: 'sample article2'
+        },
+        {
+          title: 'sample article3'
+        }
+      ],
+      contributed: [
+        {
+          title: 'sample contribute1'
+        },
+        {
+          title: 'sample contribute2'
+        }
+      ]
     }
   },
   mounted() {
@@ -33,9 +87,6 @@ export default {
     if (user != null) {
       this.username = user.displayName
       this.photoURL = user.photoURL
-
-      console.log(this.username)
-      console.log(this.photoURL)
     }
   },
   methods: {}
