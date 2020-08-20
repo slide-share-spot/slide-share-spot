@@ -22,9 +22,14 @@
           </div>
           <div v-else class="buttons">
             <nuxt-link to="/post" class="button is-light">Post</nuxt-link>
-            <nuxt-link to="/auth/mypage" class="button is-light"
-              >Mypage</nuxt-link
-            >
+            <nuxt-link
+              :to="{
+                name: 'auth-mypage',
+                params: { mypage: this.$store.getters.username }
+              }"
+              class="button is-light"
+              >Mypage
+            </nuxt-link>
             <button class="button is-light" @click="logout()">Log out</button>
           </div>
         </div>
